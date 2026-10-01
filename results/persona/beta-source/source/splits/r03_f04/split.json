@@ -1,0 +1,1396 @@
+{
+  "base_config_sha256": "a2a57afc71ce028e8c5f0b5471ef77ce2efd8810e2011590cb762bfc1b7765f8",
+  "base_protocol_id": "persona-repeated-cv-v2-fixed-six-answer",
+  "cell_labels": [
+    "passive@0.5",
+    "passive@1",
+    "passive@2",
+    "passive@4",
+    "passive@inf",
+    "active@4",
+    "active@inf"
+  ],
+  "cells": [
+    {
+      "beta": "0.5",
+      "cell": "passive@0.5",
+      "protocol": "passive"
+    },
+    {
+      "beta": "1",
+      "cell": "passive@1",
+      "protocol": "passive"
+    },
+    {
+      "beta": "2",
+      "cell": "passive@2",
+      "protocol": "passive"
+    },
+    {
+      "beta": "4",
+      "cell": "passive@4",
+      "protocol": "passive"
+    },
+    {
+      "beta": "inf",
+      "cell": "passive@inf",
+      "protocol": "passive"
+    },
+    {
+      "beta": "4",
+      "cell": "active@4",
+      "protocol": "active"
+    },
+    {
+      "beta": "inf",
+      "cell": "active@inf",
+      "protocol": "active"
+    }
+  ],
+  "config_sha256": "92256cd98978853af0a74cf4718c986775464ea997a0b74533b41e99fcb23bf8",
+  "data_sha256": "921963f45f3aed195a1da7ecca17f1548b4b6c625aed432b7f438cbf3160194f+study:02994fdd742e226a7c12181741a104964da6ebbc468d267e28abc071687f703b",
+  "discovery_ids_sha256": "cde2250f742836e0be596810673288900aa48ea1bc4b203cb71ee4853b61e3c1",
+  "evaluate_seconds": 0.141,
+  "evaluation_tau": 0.5,
+  "fit_seconds": 80.945,
+  "fold": 4,
+  "groups": [
+    "universal",
+    "technical_background_not_technical",
+    "writing_expressive",
+    "writing_direct",
+    "technical_background_very_technical",
+    "education_university"
+  ],
+  "implementation_id": "persona-protocol-beta-sweep-2026-09-20.1",
+  "learner_seeds": [
+    20260903,
+    20260904,
+    20260905,
+    20260906,
+    20260907,
+    20260908,
+    20260909,
+    20260910,
+    20260911,
+    20260912,
+    20260913,
+    20260914,
+    20260915,
+    20260916,
+    20260917,
+    20260918,
+    20260919,
+    20260920,
+    20260921,
+    20260922,
+    20260923,
+    20260924,
+    20260925,
+    20260926,
+    20260927,
+    20260928,
+    20260929,
+    20260930,
+    20260931,
+    20260932,
+    20260933,
+    20260934,
+    20260935,
+    20260936,
+    20260937,
+    20260938,
+    20260939,
+    20260940,
+    20260941,
+    20260942,
+    20260943,
+    20260944,
+    20260945,
+    20260946,
+    20260947,
+    20260948,
+    20260949,
+    20260950,
+    20260951,
+    20260952
+  ],
+  "learner_tau": 0.5,
+  "methods": [
+    "pooled",
+    "multigroup",
+    "uniform"
+  ],
+  "n_test": 150,
+  "n_train": 1347,
+  "panel_seed": 20260916,
+  "protocol_id": "persona-fixed-v8-protocol-beta-sweep",
+  "repeat": 3,
+  "seed_records": [
+    {
+      "learner_seed": 20260903,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "f66dcc6c99425737c4a2f0f736dd72e6ce567c22622d88d692d2a92fef06eb87",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 966067418
+    },
+    {
+      "learner_seed": 20260904,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "1190ade4a902de05c9da30b68688713e57536b9884f8d4d5fb084672efc7b456",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 24637353
+    },
+    {
+      "learner_seed": 20260905,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "ea16e7eb94a4b85e3a7ecb83ec2165980216a7fcbfa10b902fe9e0a8013b0ba7",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 1294710088
+    },
+    {
+      "learner_seed": 20260906,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "9155a535cf23c1c1cbc034447414007b8c799c505dbfb4c0a77839d86e6e2272",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 3198785374
+    },
+    {
+      "learner_seed": 20260907,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "a1e171089183f367e6ff44cdfadb56cc27d2e3629c132bb1e408d9b0ed49dddd",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 1693695612
+    },
+    {
+      "learner_seed": 20260908,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "abca81ff27f5c0c7e89d53b4a9630ee4aa66f434588d9bf55decc9c50ed631e7",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 2239134416
+    },
+    {
+      "learner_seed": 20260909,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "6970338098431c9be25033f39b0cb1e8719f3e898729f5675ebbce0de5a27c7d",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 2562649960
+    },
+    {
+      "learner_seed": 20260910,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "9d8d21f4ac4634a9590245bedf781e461786546f111d2712082371382fb800fb",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 33513142
+    },
+    {
+      "learner_seed": 20260911,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "4de40c048f6741471c37381a7299460771917c617c5d8f0b656bc6d9d9a9b735",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 3536224626
+    },
+    {
+      "learner_seed": 20260912,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "5f83f7b45cbd38ad241098a7886c0cf2aba91b75c424edcab61a967443784280",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 2644642363
+    },
+    {
+      "learner_seed": 20260913,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "600cd500c74591c4f75f0033892753f1967713a2c4e931e9d1016e318bab531d",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 3959833874
+    },
+    {
+      "learner_seed": 20260914,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "fe219d403ffac4f87e031f620fa7bb68d88f6c357907d2aac9f4f8ef457c154f",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 744109994
+    },
+    {
+      "learner_seed": 20260915,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "1c11dfad1e13cdfbb6f93b44677ac9a0a54343765efd8c82c6bcb30025d849cd",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 739950072
+    },
+    {
+      "learner_seed": 20260916,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "0aa84c537e7bdff58f6cbe40c8ff0a7d2a02b4e8850a2d06510c7573ae00962a",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 3798788142
+    },
+    {
+      "learner_seed": 20260917,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "cad4c0fbf5f1b00b7d216866483e283af63678a5230bfb34b909c46657c083e1",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 226636930
+    },
+    {
+      "learner_seed": 20260918,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "018af9b27106fb854fbe2a0c5f53fcc488c52433945a7f4558d1f558ede09ab2",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 2712369304
+    },
+    {
+      "learner_seed": 20260919,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "e91c5df9cd34c62d3bbbfab8a9d2569eeb1ad4a7f67fdc42f4180c2d61bdd363",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 480855566
+    },
+    {
+      "learner_seed": 20260920,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "4b9228abc19b90e696c4adc0660c1246b71355e28abc22b1f94785d7e26c0be2",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 359544387
+    },
+    {
+      "learner_seed": 20260921,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "ad04c527264554b97c0af8bb0c01dddfc1c96820c0bce97906471ecd719e8360",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 2200192572
+    },
+    {
+      "learner_seed": 20260922,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "bc24dda1f730d16df5ac43c68423c8e39844d95ac80f7cb11a0dd16fae1711e3",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 991383910
+    },
+    {
+      "learner_seed": 20260923,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "b80bd0343b396b87839d11749b11e00d8b17dc685874bc595f6d5138547f53e6",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 1837511643
+    },
+    {
+      "learner_seed": 20260924,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "e4e8a2154112e5754096a23cd24c6f062fd2b2099c0a1c601cedcb147852a724",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 2865616121
+    },
+    {
+      "learner_seed": 20260925,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "b6fd83816026df5d7e9f258fa22a8b5fd08957eb873014f9d137107686645e9d",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 2096554067
+    },
+    {
+      "learner_seed": 20260926,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "3fc6f5be5eb529eb729dcfe8c4671e0dcf0bd0c5b89f50adaafc9855fba1904b",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 3574594157
+    },
+    {
+      "learner_seed": 20260927,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "a599ed7a77d5e18f4722962dfdc10b8babc15557e16cd00b790e8be53675dee1",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 2903848799
+    },
+    {
+      "learner_seed": 20260928,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "ce178e9ad7e24c34ba6cfb4f4a56035a05438b195c26b60b6957bb52fe4f12a4",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 604407933
+    },
+    {
+      "learner_seed": 20260929,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "4ed0618b34097b6ea7d4cc5b2c74cb04a06d9bf27fbb6282bf0f62995e5b5a6b",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 786434329
+    },
+    {
+      "learner_seed": 20260930,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "4410475a5a819880d352e736ba280027d350ec96d1ae11ecbf2b68d645cfa1a7",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 793793307
+    },
+    {
+      "learner_seed": 20260931,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "4a1a1fcebb4af7653dcbc7bc61e33dc39b19ff6767029ca6ae13a4abbff41245",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 1419751361
+    },
+    {
+      "learner_seed": 20260932,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "93cd4c5e152da46debe7a4950da33417fca76ef28baf56e85f000f8303475ea6",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 1606174225
+    },
+    {
+      "learner_seed": 20260933,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "9c285d2bb4e357212160c322bb051166cbec1b31e389a9ac9b85268210243971",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 1784164076
+    },
+    {
+      "learner_seed": 20260934,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "790833eb3572c1a841237fde6cfc566553c570b3160459c594d34d4cd3d3cffa",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 1231580160
+    },
+    {
+      "learner_seed": 20260935,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "f77ca60b0bad32521ae3c909ec33d3699ed486190e904fbffb52773d0455cdb0",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 753334012
+    },
+    {
+      "learner_seed": 20260936,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "c7dc307efb075cf6e2bcc1884d193648f5a007ded65830e61547cc36f9a8a6bd",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 3319241094
+    },
+    {
+      "learner_seed": 20260937,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "6868a351d235054061fc934d7b8cc155c4bffcd398199c1794669fb0a7e01dc0",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 806423991
+    },
+    {
+      "learner_seed": 20260938,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "6e51c129f7e218331a3d1defb1c25fd3febe8f4316ac10286961cbcd5e0d0007",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 210760852
+    },
+    {
+      "learner_seed": 20260939,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "2343dbf7295da26fffb365f61e85a8f44bb454f96b9987fd780cb237daea3d3f",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 3705951654
+    },
+    {
+      "learner_seed": 20260940,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "f465e889563aac4d20395313185d98d5f4fa7a8a357e762a9d098465441b01c2",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 891885094
+    },
+    {
+      "learner_seed": 20260941,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "eb580d56581392287427f45694b98db06b3c7876123458d1042d1d879e3f569a",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 3431563554
+    },
+    {
+      "learner_seed": 20260942,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "146c6b0b7861107c1ee3876a37f4637b166be1c4790a5d10de01cf53a072b67f",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 124930382
+    },
+    {
+      "learner_seed": 20260943,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "c2920bfb68b4a13deb7cf77320ed5dae6997e5e07c2fa818ee64a48b1799a075",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 364629953
+    },
+    {
+      "learner_seed": 20260944,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "78016d7d09f7c7a243fb7f455f8e50075abd57683d1224a9ce1ee019084e74dc",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 33067654
+    },
+    {
+      "learner_seed": 20260945,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "405e03fc92c993ddd4eddba6ebe9f9844ef27c2cad66360412bf053081a0e2b9",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 2739975420
+    },
+    {
+      "learner_seed": 20260946,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "1bad41d8924b899ffe2dd669c1a27f162414540b0d868faf75a524330c071dd8",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 3642786033
+    },
+    {
+      "learner_seed": 20260947,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "88967a1e132c0d6a7bb3c8be5086357c905be542745ef69d88c5530fd2f2958f",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 3761011467
+    },
+    {
+      "learner_seed": 20260948,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "6e1baf50be945d3b54de8cada8c6fced6be200c9b31b17940a12043558f5c9a0",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 1587163121
+    },
+    {
+      "learner_seed": 20260949,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "d4ea60178f5355f3f4d3d6ee76c6b39535fbbd1620887f290daba4e3a6e36e48",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 1460707756
+    },
+    {
+      "learner_seed": 20260950,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "66c3230ed7cb6d0e8934a9a3d6779810059570f1624f90a1cc6c6704da3bcea8",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 1571037338
+    },
+    {
+      "learner_seed": 20260951,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "d38167ead2f216a5004c1590fcc233638cb1ea427fdb9979afa2324398c01c88",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 1545198317
+    },
+    {
+      "learner_seed": 20260952,
+      "n_comparisons": 1347,
+      "respondent_order_sha256": "b0545adb5526b6593d519194c1c3a564c69e980a8a725cbf8c35f6aaf3ae3893",
+      "score_bound": {
+        "active@4": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "active@inf": "K - 1 (one_expert._prepare_training_inputs, protocol='active')",
+        "passive@0.5": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@1": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@2": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@4": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')",
+        "passive@inf": "max(1 / propensity) = K (K - 1) / 2 for a uniform log (protocol='logged')"
+      },
+      "shared_log_across_arms": {
+        "active@4": false,
+        "active@inf": false,
+        "passive@0.5": true,
+        "passive@1": true,
+        "passive@2": true,
+        "passive@4": true,
+        "passive@inf": true
+      },
+      "training_membership_alignment": "log_respondent_indices",
+      "training_seed": 3078633321
+    }
+  ],
+  "split_scores": {
+    "active@4": 0.2585175047822633,
+    "active@inf": 0.26538690280701277,
+    "passive@0.5": 0.12616747592072092,
+    "passive@1": 0.21054814081590398,
+    "passive@2": 0.24369721200499697,
+    "passive@4": 0.24978896505018094,
+    "passive@inf": 0.2878187026193632
+  },
+  "test_ids_sha256": "32ca270ed81f9a40c8fa8e1cc58b3aeb299c921d94aeda592e9f16978a31cb79",
+  "test_outcomes_used_for_training": false,
+  "train_ids_sha256": "fe5e61b4422ecf352df2cd18e1c75cfa729a9e26310dde2fc39dd0bef5988edf",
+  "submission_omitted_files": [
+    "comparisons.npz"
+  ]
+}

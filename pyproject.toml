@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "empirical-testing"
+version = "0.2.0"
+description = "Coffee and synthetic Persona experiments for groupwise preference learning"
+# Tested on Python 3.12 with the exact versions in requirements.txt. The dependency
+# minimums below (NumPy 2 and pandas 3 need Python >= 3.11) are untested lower bounds.
+requires-python = ">=3.11"
+dependencies = [
+  "numpy>=2.0",
+  "pandas>=2.2",
+  "scipy>=1.13",
+  "matplotlib>=3.8",
+  # The CPU kernels were validated with exactly these compiler versions.
+  "numba==0.67.0",
+  "llvmlite==0.49.0",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["empirical_testing*"]
+
+[tool.pytest.ini_options]
+# Tests import the packages straight from the checkout; installing the project is optional.
+pythonpath = ["src"]
+testpaths = ["tests"]

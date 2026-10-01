@@ -1,0 +1,17 @@
+{
+  "sources": {
+    "coffee": {
+      "run": "results/coffee/learning-curves",
+      "table_sha256": "fa934cb0ff1965b902e4d63af7861e1667108d211cfebe3b4aba85beb9437f50"
+    },
+    "persona": {
+      "run": "results/persona/learning-curves",
+      "table_sha256": "982888a9a32431ed0550fbe94571ab4cea9a77ef1201539b0f56bbb52a4b5c94"
+    }
+  },
+  "caption": "Active and passive Multigroup GLHF training trajectories at beta=infinity and learner/evaluation KL radii 0.5. Each checkpoint evaluates the uniform average of the first t pre-round policy maps from the original full-horizon fit on the same held-out fold; the learning-rate horizon is not retuned. One comparison is collected per training respondent. The x coordinate is the mean comparison count across folds at a fixed fraction of training; fold sizes differ slightly. Worst-group distortion maximizes over the six selected groups within each seed before seeds are averaged within each split. Curves average 100 split scores, each based on 50 learner seeds. Shading shows approximate 95% pointwise confidence intervals, corrected for overlapping cross-validation folds. These describe each method's mean at a checkpoint; protocol comparisons use the separately saved paired differences. The horizontal line at one marks the fixed-lottery benchmark. Bands in the synthetic panel are narrow at the displayed scale. The datasets use different vertical scales. The protocol comparison includes each sampler's native score normalization.",
+  "outputs": [
+    "figures/learning-curves/active_passive.pdf",
+    "figures/learning-curves/active_passive.png"
+  ]
+}

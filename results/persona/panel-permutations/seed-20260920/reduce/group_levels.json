@@ -1,0 +1,143 @@
+{
+  "cells": [
+    {
+      "arm": "pooled",
+      "ci_lower": 1.0468078093345718,
+      "ci_upper": 1.0671058613023472,
+      "corrected_se": 0.005114877168937238,
+      "degrees_of_freedom": 99,
+      "estimate": 1.0569568353184595,
+      "group": "universal",
+      "n_splits": 100,
+      "status": "ok"
+    },
+    {
+      "arm": "pooled",
+      "ci_lower": 1.305708741747207,
+      "ci_upper": 1.3412125115959286,
+      "corrected_se": 0.008946544333354161,
+      "degrees_of_freedom": 99,
+      "estimate": 1.3234606266715678,
+      "group": "technical_background_not_technical",
+      "n_splits": 100,
+      "status": "ok"
+    },
+    {
+      "arm": "pooled",
+      "ci_lower": 1.125840302806919,
+      "ci_upper": 1.150071673721624,
+      "corrected_se": 0.006106028601189963,
+      "degrees_of_freedom": 99,
+      "estimate": 1.1379559882642716,
+      "group": "writing_expressive",
+      "n_splits": 100,
+      "status": "ok"
+    },
+    {
+      "arm": "pooled",
+      "ci_lower": 1.2996419786431725,
+      "ci_upper": 1.3300793572499585,
+      "corrected_se": 0.007669871629322321,
+      "degrees_of_freedom": 99,
+      "estimate": 1.3148606679465655,
+      "group": "writing_direct",
+      "n_splits": 100,
+      "status": "ok"
+    },
+    {
+      "arm": "pooled",
+      "ci_lower": 1.2500991328181288,
+      "ci_upper": 1.2737152312200257,
+      "corrected_se": 0.0059509869581083966,
+      "degrees_of_freedom": 99,
+      "estimate": 1.2619071820190773,
+      "group": "technical_background_very_technical",
+      "n_splits": 100,
+      "status": "ok"
+    },
+    {
+      "arm": "pooled",
+      "ci_lower": 1.0410123773948436,
+      "ci_upper": 1.0715016675717388,
+      "corrected_se": 0.007682952751844627,
+      "degrees_of_freedom": 99,
+      "estimate": 1.0562570224832912,
+      "group": "education_university",
+      "n_splits": 100,
+      "status": "ok"
+    },
+    {
+      "arm": "multigroup",
+      "ci_lower": 0.8774057135150424,
+      "ci_upper": 0.8942163960110221,
+      "corrected_se": 0.0042360999089689376,
+      "degrees_of_freedom": 99,
+      "estimate": 0.8858110547630322,
+      "group": "universal",
+      "n_splits": 100,
+      "status": "ok"
+    },
+    {
+      "arm": "multigroup",
+      "ci_lower": 1.0862222292285324,
+      "ci_upper": 1.1089882010012064,
+      "corrected_se": 0.005736764761149809,
+      "degrees_of_freedom": 99,
+      "estimate": 1.0976052151148694,
+      "group": "technical_background_not_technical",
+      "n_splits": 100,
+      "status": "ok"
+    },
+    {
+      "arm": "multigroup",
+      "ci_lower": 0.973525112706927,
+      "ci_upper": 0.9847331611226758,
+      "corrected_se": 0.002824300136834308,
+      "degrees_of_freedom": 99,
+      "estimate": 0.9791291369148014,
+      "group": "writing_expressive",
+      "n_splits": 100,
+      "status": "ok"
+    },
+    {
+      "arm": "multigroup",
+      "ci_lower": 1.046592326873584,
+      "ci_upper": 1.0706601191507346,
+      "corrected_se": 0.006064808653587023,
+      "degrees_of_freedom": 99,
+      "estimate": 1.0586262230121593,
+      "group": "writing_direct",
+      "n_splits": 100,
+      "status": "ok"
+    },
+    {
+      "arm": "multigroup",
+      "ci_lower": 1.058854214908164,
+      "ci_upper": 1.0629969567003692,
+      "corrected_se": 0.0010439235963821858,
+      "degrees_of_freedom": 99,
+      "estimate": 1.0609255858042665,
+      "group": "technical_background_very_technical",
+      "n_splits": 100,
+      "status": "ok"
+    },
+    {
+      "arm": "multigroup",
+      "ci_lower": 0.863579945502251,
+      "ci_upper": 0.8874445064332532,
+      "corrected_se": 0.006013596676492996,
+      "degrees_of_freedom": 99,
+      "estimate": 0.8755122259677521,
+      "group": "education_university",
+      "n_splits": 100,
+      "status": "ok"
+    }
+  ],
+  "confidence_level": 0.95,
+  "interval_label": "ordinary marginal Nadeau-Bengio corrected 95% intervals, one (arm, group) cell at a time; they are not simultaneous over the cells and are not multiplicity-adjusted",
+  "interval_type": "marginal_corrected_95_percent_not_simultaneous",
+  "lower_is_better": true,
+  "method": "nadeau_bengio_corrected_repeated_cv_t_per_arm_and_group",
+  "pairing_warning": "the two arms share each split and each seed's comparison log, so their level estimates are paired and positively correlated; overlap between a pooled interval and a multigroup interval does NOT mean the arms are indistinguishable, and the difference of the two levels is not the paired gap -- read group_gaps for the comparison",
+  "quantity": "mean_over_splits( mean_seed( D_arm[group] ) )"
+}

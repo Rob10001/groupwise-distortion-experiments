@@ -1,0 +1,194 @@
+{
+  "suite_id": "persona-comparison-suite-v10",
+  "dataset": "persona",
+  "protocol_id": "persona-active-tau-v10",
+  "implementation_id": "v10-engine-2026-09-21.4-gate2e-5",
+  "mode": "comparison-suite-v10",
+  "execution": "reuse-required",
+  "reportable": true,
+  "status": "completed",
+  "started_at": "2026-09-21T06:50:05+00:00",
+  "workers": 6,
+  "smoke": false,
+  "methods": [
+    "multigroup",
+    "pooled",
+    "pooled_nlhf",
+    "uniform"
+  ],
+  "regimes": [
+    "fixed_0.5",
+    "moving"
+  ],
+  "stages": {
+    "validate_inputs": {
+      "seconds": 0.11,
+      "splits": 100,
+      "seeds": 50,
+      "groups": [
+        "universal",
+        "technical_background_not_technical",
+        "writing_expressive",
+        "writing_direct",
+        "technical_background_very_technical",
+        "education_university"
+      ]
+    },
+    "validate_imported": {
+      "seconds": 0.02,
+      "source": "results/persona/beta-source/source",
+      "available": true
+    },
+    "missing_fits": {
+      "seconds": 1679.97,
+      "computed": 100,
+      "reused": 0
+    },
+    "evaluate": {
+      "seconds": 0.0,
+      "note": "evaluation happens inside each split unit, from the same fitted policy cube, once per regime"
+    },
+    "reduce": {
+      "seconds": 1.53,
+      "tables": 19
+    },
+    "coverage": {
+      "seconds": 0.0,
+      "rows": 76,
+      "incomplete": 0
+    }
+  },
+  "validation": {
+    "group_family_matches_imported": true,
+    "group_family": [
+      "universal",
+      "technical_background_not_technical",
+      "writing_expressive",
+      "writing_direct",
+      "technical_background_very_technical",
+      "education_university"
+    ],
+    "comparator_exact_on_every_split": true,
+    "splits_checked": 100,
+    "shared_tau_identity": {
+      "shared_tau": 0.5,
+      "regimes_agree_exactly_at_shared_tau": true,
+      "mismatched_splits": [],
+      "splits_compared": 100
+    },
+    "imported_source": "results/persona/beta-source/source"
+  },
+  "fit_counts": {
+    "glhf_beta": 0,
+    "glhf_tau": 50000,
+    "nlhf_beta": 25000,
+    "nlhf_tau": 25000,
+    "total": 100000
+  },
+  "solver": {
+    "fits": 50000,
+    "unconverged": 1678,
+    "max_abs_exploitability": 1.5706489871003647e-07,
+    "gate": 2e-05,
+    "all_single_reference_start": true
+  },
+  "outputs": {
+    "beta/method_levels": {
+      "csv": "results/persona/comparison/reduce/beta/method_levels.csv",
+      "json": "results/persona/comparison/reduce/beta/method_levels.json",
+      "rows": 28
+    },
+    "beta/method_group_levels": {
+      "csv": "results/persona/comparison/reduce/beta/method_group_levels.csv",
+      "json": "results/persona/comparison/reduce/beta/method_group_levels.json",
+      "rows": 168
+    },
+    "beta/method_contrasts": {
+      "csv": "results/persona/comparison/reduce/beta/method_contrasts.csv",
+      "json": "results/persona/comparison/reduce/beta/method_contrasts.json",
+      "rows": 42
+    },
+    "beta/method_group_contrasts": {
+      "csv": "results/persona/comparison/reduce/beta/method_group_contrasts.csv",
+      "json": "results/persona/comparison/reduce/beta/method_group_contrasts.json",
+      "rows": 252
+    },
+    "beta/split_scores": {
+      "csv": "results/persona/comparison/reduce/beta/split_scores.csv",
+      "json": "results/persona/comparison/reduce/beta/split_scores.json",
+      "rows": 4200
+    },
+    "beta/protocol_contrasts": {
+      "csv": "results/persona/comparison/reduce/beta/protocol_contrasts.csv",
+      "json": "results/persona/comparison/reduce/beta/protocol_contrasts.json",
+      "rows": 4
+    },
+    "beta/protocol_group_contrasts": {
+      "csv": "results/persona/comparison/reduce/beta/protocol_group_contrasts.csv",
+      "json": "results/persona/comparison/reduce/beta/protocol_group_contrasts.json",
+      "rows": 24
+    },
+    "fixed_0.5/method_levels": {
+      "csv": "results/persona/comparison/reduce/fixed_0.5/method_levels.csv",
+      "json": "results/persona/comparison/reduce/fixed_0.5/method_levels.json",
+      "rows": 24
+    },
+    "fixed_0.5/method_group_levels": {
+      "csv": "results/persona/comparison/reduce/fixed_0.5/method_group_levels.csv",
+      "json": "results/persona/comparison/reduce/fixed_0.5/method_group_levels.json",
+      "rows": 144
+    },
+    "fixed_0.5/method_contrasts": {
+      "csv": "results/persona/comparison/reduce/fixed_0.5/method_contrasts.csv",
+      "json": "results/persona/comparison/reduce/fixed_0.5/method_contrasts.json",
+      "rows": 36
+    },
+    "fixed_0.5/method_group_contrasts": {
+      "csv": "results/persona/comparison/reduce/fixed_0.5/method_group_contrasts.csv",
+      "json": "results/persona/comparison/reduce/fixed_0.5/method_group_contrasts.json",
+      "rows": 216
+    },
+    "fixed_0.5/split_scores": {
+      "csv": "results/persona/comparison/reduce/fixed_0.5/split_scores.csv",
+      "json": "results/persona/comparison/reduce/fixed_0.5/split_scores.json",
+      "rows": 3600
+    },
+    "moving/method_levels": {
+      "csv": "results/persona/comparison/reduce/moving/method_levels.csv",
+      "json": "results/persona/comparison/reduce/moving/method_levels.json",
+      "rows": 24
+    },
+    "moving/method_group_levels": {
+      "csv": "results/persona/comparison/reduce/moving/method_group_levels.csv",
+      "json": "results/persona/comparison/reduce/moving/method_group_levels.json",
+      "rows": 144
+    },
+    "moving/method_contrasts": {
+      "csv": "results/persona/comparison/reduce/moving/method_contrasts.csv",
+      "json": "results/persona/comparison/reduce/moving/method_contrasts.json",
+      "rows": 36
+    },
+    "moving/method_group_contrasts": {
+      "csv": "results/persona/comparison/reduce/moving/method_group_contrasts.csv",
+      "json": "results/persona/comparison/reduce/moving/method_group_contrasts.json",
+      "rows": 216
+    },
+    "moving/split_scores": {
+      "csv": "results/persona/comparison/reduce/moving/split_scores.csv",
+      "json": "results/persona/comparison/reduce/moving/split_scores.json",
+      "rows": 3600
+    },
+    "coverage": {
+      "csv": "results/persona/comparison/reduce/coverage.csv",
+      "json": "results/persona/comparison/reduce/coverage.json",
+      "rows": 76
+    },
+    "solver_diagnostics": {
+      "csv": "results/persona/comparison/reduce/solver_diagnostics.csv",
+      "json": "results/persona/comparison/reduce/solver_diagnostics.json",
+      "rows": 50000
+    }
+  },
+  "finished_at": "2026-09-21T07:18:06+00:00",
+  "wall_seconds": 1681.6
+}

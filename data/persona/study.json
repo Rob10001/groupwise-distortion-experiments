@@ -1,0 +1,170 @@
+{
+  "study_id": "sky-blue-persona-api-v8",
+  "question": "Why is the sky blue?",
+  "features": [
+    {
+      "id": "age",
+      "label": "Age",
+      "levels": [
+        "22-32",
+        "62-72"
+      ]
+    },
+    {
+      "id": "education",
+      "label": "Education",
+      "levels": [
+        "Highest completed education is high school or less",
+        "Highest completed education is a university degree"
+      ]
+    },
+    {
+      "id": "technical_background",
+      "label": "Technical background",
+      "levels": [
+        "Not technical; no technical/STEM work, training, or study",
+        "Very technical; extensive technical/STEM work, training, or study"
+      ]
+    },
+    {
+      "id": "preferred_writing_style",
+      "label": "Preferred writing style",
+      "levels": [
+        "Prefers direct and literal wording",
+        "Enjoys expressive and literary wording"
+      ]
+    }
+  ],
+  "analysis_groups": [
+    {
+      "id": "all_personas",
+      "label": "All personas"
+    },
+    {
+      "id": "age_22_32",
+      "label": "Age 22-32",
+      "feature_id": "age",
+      "level": 0
+    },
+    {
+      "id": "age_62_72",
+      "label": "Age 62-72",
+      "feature_id": "age",
+      "level": 1
+    },
+    {
+      "id": "education_high_school_or_less",
+      "label": "High school education or less",
+      "feature_id": "education",
+      "level": 0
+    },
+    {
+      "id": "education_university",
+      "label": "University education",
+      "feature_id": "education",
+      "level": 1
+    },
+    {
+      "id": "technical_background_not_technical",
+      "label": "Not technical",
+      "feature_id": "technical_background",
+      "level": 0
+    },
+    {
+      "id": "technical_background_very_technical",
+      "label": "Very technical",
+      "feature_id": "technical_background",
+      "level": 1
+    },
+    {
+      "id": "writing_direct",
+      "label": "Prefers direct and literal wording",
+      "feature_id": "preferred_writing_style",
+      "level": 0
+    },
+    {
+      "id": "writing_expressive",
+      "label": "Enjoys expressive and literary wording",
+      "feature_id": "preferred_writing_style",
+      "level": 1
+    }
+  ],
+  "preference_hypotheses": [
+    {
+      "alternative_id": "accessible_direct_correct",
+      "hypothesized_strongest_intersection": {
+        "technical_background": 0,
+        "preferred_writing_style": 0
+      }
+    },
+    {
+      "alternative_id": "accessible_expressive_correct",
+      "hypothesized_strongest_intersection": {
+        "technical_background": 0,
+        "preferred_writing_style": 1
+      }
+    },
+    {
+      "alternative_id": "technical_direct_correct",
+      "hypothesized_strongest_intersection": {
+        "technical_background": 1,
+        "preferred_writing_style": 0
+      }
+    },
+    {
+      "alternative_id": "technical_expressive_correct",
+      "hypothesized_strongest_intersection": {
+        "technical_background": 1,
+        "preferred_writing_style": 1
+      }
+    },
+    {
+      "alternative_id": "fictional_story_incorrect",
+      "role": "expressive_negative_control",
+      "expected_to_win_a_group": false
+    },
+    {
+      "alternative_id": "plain_incorrect",
+      "role": "direct_negative_control",
+      "expected_to_win_a_group": false
+    }
+  ],
+  "alternatives": [
+    {
+      "id": "accessible_direct_correct",
+      "design_role": "accessible_direct",
+      "correctness": "correct",
+      "text": "Sunlight contains many colors, and the air spreads the blue ones around more than the red ones. That is why the sky looks blue."
+    },
+    {
+      "id": "accessible_expressive_correct",
+      "design_role": "accessible_expressive_analogy",
+      "correctness": "correct",
+      "text": "Imagine white sunlight as a crowd of colors crossing the air. The red colors mostly keep marching forward, while the blue colors are nudged into wandering paths by tiny molecules. Those blue wanderers reach your eyes from all across the heavens, painting the daytime view blue. It is a simple picture of how air scatters light."
+    },
+    {
+      "id": "technical_direct_correct",
+      "design_role": "technical_direct",
+      "correctness": "correct",
+      "text": "How strongly air redirects light depends sharply on the light's wavelength: the strength varies approximately with the inverse fourth power, so 450-nanometer blue light is scattered several times more strongly than 650-nanometer red light. This is the Rayleigh regime, which applies because air molecules are much smaller than visible wavelengths. Scattering along every line of sight creates a blue-weighted diffuse radiance. Violet is less prominent because the solar spectrum, atmospheric absorption, and human visual sensitivity reduce its contribution. At sunset, the longer optical path scatters blue out of the direct beam, leaving red and orange."
+    },
+    {
+      "id": "technical_expressive_correct",
+      "design_role": "technical_expressive",
+      "correctness": "correct",
+      "text": "Air does not redirect every color equally. Its effect rises sharply as wavelength shortens, roughly with the inverse fourth power, so 450-nanometer blue light is scattered several times more strongly than 650-nanometer red light. In this Rayleigh regime, blue photons are swept from the Sun's direct beam and distributed across innumerable lines of sight, building the blue radiance overhead; red photons travel onward more faithfully. Violet scatters still more, yet solar output, atmospheric absorption, and the eye's sensitivity mute it. At sunset, the lengthened path spends the blues and leaves the horizon burning red."
+    },
+    {
+      "id": "fictional_story_incorrect",
+      "design_role": "fictional_story_negative_control",
+      "correctness": "incorrect",
+      "text": "When the world was new, the sky was clear as glass and the sea alone held color. Each morning, the wind carried a little of the sea upward, spreading its blue across the empty air so travelers could tell day from night. Rain returned some of that color to the water, while evening loosened the rest into red and gold before darkness arrived. That is why the sky and ocean share one blue, continually passed between them by wind and weather."
+    },
+    {
+      "id": "plain_incorrect",
+      "design_role": "plain_direct_negative_control",
+      "correctness": "incorrect",
+      "text": "The sky is blue because it reflects the color of the oceans below it. Light bounces off the water and spreads across the sky."
+    }
+  ]
+}

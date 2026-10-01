@@ -1,0 +1,143 @@
+{
+  "protocol_id": "coffee-repeated-cv-v4-10x10",
+  "study_status": "post_hoc_exploratory_sensitivity_analysis_not_confirmatory",
+  "dataset": "coffee",
+  "data_path": "data/coffee/raw/coffee_survey.csv",
+  "split": "repeated_k_fold_cross_validation",
+  "discovery_seed": 1667498008,
+  "discovery_fraction": 0.1,
+  "discovery_rounding": "ceiling",
+  "discovery_draw": "numpy.default_rng(discovery_seed).choice(n_eligible, k, replace=False)",
+  "discovery_row_order": "source_csv_row_order_after_complete_profile_filter",
+  "cv_seed": 3183923047,
+  "folds": 10,
+  "repeats": 10,
+  "confidence_level": 0.95,
+  "group_selection": "user_specified_not_automatically_discovered",
+  "groups": [
+    "universal",
+    "age:45+",
+    "gender:female",
+    "expertise:1-4",
+    "children:reported-1+",
+    "work:from-home"
+  ],
+  "group_definitions": [
+    {
+      "name": "universal",
+      "field": null,
+      "values": [
+        "ALL"
+      ]
+    },
+    {
+      "name": "age:45+",
+      "field": "age",
+      "values": [
+        "45-54 years old",
+        "55-64 years old",
+        ">65 years old"
+      ]
+    },
+    {
+      "name": "gender:female",
+      "field": "gender",
+      "values": [
+        "Female"
+      ]
+    },
+    {
+      "name": "expertise:1-4",
+      "field": "expertise",
+      "values": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "name": "children:reported-1+",
+      "field": "number_children",
+      "values": [
+        "1",
+        "2",
+        "3",
+        "More than 3"
+      ]
+    },
+    {
+      "name": "work:from-home",
+      "field": "wfh",
+      "values": [
+        "I primarily work from home"
+      ]
+    }
+  ],
+  "algorithm": "groupwise_self_play_span_adaptive",
+  "arms": [
+    "pooled",
+    "multigroup"
+  ],
+  "learner_seeds": [
+    20260903,
+    20260904,
+    20260905,
+    20260906,
+    20260907,
+    20260908,
+    20260909,
+    20260910,
+    20260911,
+    20260912,
+    20260913,
+    20260914,
+    20260915,
+    20260916,
+    20260917,
+    20260918,
+    20260919,
+    20260920,
+    20260921,
+    20260922,
+    20260923,
+    20260924,
+    20260925,
+    20260926,
+    20260927,
+    20260928,
+    20260929,
+    20260930,
+    20260931,
+    20260932,
+    20260933,
+    20260934,
+    20260935,
+    20260936,
+    20260937,
+    20260938,
+    20260939,
+    20260940,
+    20260941,
+    20260942,
+    20260943,
+    20260944,
+    20260945,
+    20260946,
+    20260947,
+    20260948,
+    20260949,
+    20260950,
+    20260951,
+    20260952
+  ],
+  "protocol": "passive_uniform_unordered_pair",
+  "comparisons_per_respondent": 1,
+  "reference": "uniform",
+  "tau": 0.5,
+  "output_averaging": "all_pre_round_policy_maps",
+  "tie_rule": "fair_seeded_coin",
+  "beta": "inf",
+  "estimand": "mean_over_splits( mean_seed( max_group(D_pooled) - max_group(D_multigroup) ) )",
+  "inference": "nadeau_bengio_corrected_repeated_cv_t"
+}

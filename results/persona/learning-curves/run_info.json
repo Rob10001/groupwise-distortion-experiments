@@ -1,0 +1,85 @@
+{
+  "implementation_id": "v10-learning-curves-2026-09-21.1",
+  "dataset": "persona",
+  "status": "completed",
+  "reportable": true,
+  "smoke": false,
+  "source": "results/persona/beta-source/source",
+  "config_path": "configs/persona.json",
+  "code_sha256": {
+    "v10_learning_curves.py": "9468956b6a5f698a922b92d229b963a87ee6f49f269da0d4f586ee7bc36c5753",
+    "v10_trajectory.py": "364777e58369ecf92905eee1ca22986cf7211a06c90fabed5bfa37397431ccb0",
+    "span_adaptive.py": "ce09da95995f67cf0632bfcf13a7369a21b17d6fe3a69e40cd98ea18440906d5",
+    "one_expert.py": "b77403c5e01977ae0d4ddf17769a70fd9cecb3345b8e415414207363f5761625",
+    "registry.py": "c1c6909b74cc2dc4cba9962914d6ecb14e497b21cba5b1881e24f39804996454",
+    "compiled_kernels.py": "8b965c0de87d87fd93470df26c160f713b831b89e0de9667f8f2fe42193f8db7"
+  },
+  "python": "3.12.14",
+  "numpy": "2.3.5",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "beta": "inf",
+  "learner_tau": 0.5,
+  "evaluation_tau": 0.5,
+  "protocols": [
+    "passive",
+    "active"
+  ],
+  "methods": [
+    "multigroup"
+  ],
+  "fractions": [
+    0.0,
+    0.01,
+    0.025,
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    1.0
+  ],
+  "n_splits": 100,
+  "n_seeds": 50,
+  "endpoint_atol": 1e-09,
+  "endpoint_rtol": 1e-08,
+  "estimand": "full-horizon training trajectory; first t pre-round maps averaged; fixed held-out comparator",
+  "interval": "seed means within split, then approximate Nadeau-Bengio corrected marginal 95%; not simultaneous",
+  "outputs": {
+    "method_levels": {
+      "csv": "results/persona/learning-curves/reduce/method_levels.csv",
+      "json": "results/persona/learning-curves/reduce/method_levels.json",
+      "rows": 30
+    },
+    "group_levels": {
+      "csv": "results/persona/learning-curves/reduce/group_levels.csv",
+      "json": "results/persona/learning-curves/reduce/group_levels.json",
+      "rows": 180
+    },
+    "protocol_contrasts": {
+      "csv": "results/persona/learning-curves/reduce/protocol_contrasts.csv",
+      "json": "results/persona/learning-curves/reduce/protocol_contrasts.json",
+      "rows": 15
+    },
+    "split_scores": {
+      "csv": "results/persona/learning-curves/reduce/split_scores.csv",
+      "json": "results/persona/learning-curves/reduce/split_scores.json",
+      "rows": 1500
+    }
+  },
+  "figures": [
+    "results/persona/learning-curves/figures/persona_learning_curves.pdf",
+    "results/persona/learning-curves/figures/persona_learning_curves.png"
+  ],
+  "seconds": 10.551305100030731,
+  "computed_splits": 0,
+  "reused_splits": 100,
+  "reconstructed_fits": 0,
+  "max_endpoint_error": 5.551115123125783e-15,
+  "endpoint_verified": true
+}

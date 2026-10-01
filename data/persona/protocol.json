@@ -1,0 +1,170 @@
+{
+  "protocol_id": "persona-repeated-cv-v2-fixed-six-answer",
+  "written_before_any_analysis_of_scores": true,
+  "study_id": "sky-blue-persona-api-v8",
+  "collection": ".",
+  "supersedes_nothing": "Historical collection and protocol identifiers describe the original study. Earlier routes are archived outside this standalone suite; see ../../PROVENANCE.md.",
+  "data": {
+    "results_csv": "ratings.csv",
+    "results_csv_sha256": "921963f45f3aed195a1da7ecca17f1548b4b6c625aed432b7f438cbf3160194f",
+    "study_json": "study.json",
+    "study_json_sha256": "02994fdd742e226a7c12181741a104964da6ebbc468d267e28abc071687f703b",
+    "prompt_txt": "prompt.txt",
+    "prompt_txt_sha256": "5e7131a47d7ca4f7676e70c4392984c434bc54be2aabf6e12e4d69607ad066a4",
+    "requests_csv": "requests.csv",
+    "requests_csv_sha256": "2aad684449d32cfbfd84ba7192fa8a192aaf9e205532787632c5043c39c53b7b",
+    "ratings": 9984,
+    "grid": "16 cells x 6 answers x 104 draws",
+    "all_rows_status_ok": true,
+    "demographic_order_bits": "00011011",
+    "demographic_order_condition": "fixed in every request; demographic-line position is held constant and is therefore not a source of within-collection variation and not an identifiable effect"
+  },
+  "collection_design_changes_from_v1": {
+    "changed_at_once": [
+      "demographic line order fixed rather than varied",
+      "a sixth answer added",
+      "a direct negative control added",
+      "answer text revised",
+      "prompt wording slightly revised",
+      "draws per (cell, answer) changed from 125 to 104",
+      "different random API samples"
+    ],
+    "consequence": "a difference between v1 and v2 cannot be attributed to any one of these changes; the causal effect of fixed line order is not identified by this collection"
+  },
+  "panel": {
+    "pseudo_respondents": 1664,
+    "answers_per_pseudo_respondent": 6,
+    "utility_map": "(score - 1) / 9",
+    "alignment": "within each persona cell, each answer's 104 draws are independently permuted with default_rng(SeedSequence([panel_seed, cell_index, answer_index])) and read side by side",
+    "panel_seed": 20260916,
+    "sensitivity_panel_seeds": [
+      20260916,
+      20260917,
+      20260918,
+      20260919,
+      20260920
+    ],
+    "independence_assumption": "the six answers were rated in separate API calls; the aligned vectors assume independence across answer-specific draws and are not six ratings from one simulated individual"
+  },
+  "discovery": {
+    "k": 167,
+    "fraction": 0.1,
+    "rounding": "ceiling",
+    "seed": 20260918,
+    "stratification": "balanced by persona cell: 10 per cell, with the 7 cells taking an 11th drawn from the seed",
+    "excluded_from": [
+      "policy training",
+      "every cross-validation test fold",
+      "hyperparameter selection",
+      "the headline estimate"
+    ]
+  },
+  "group_selection": {
+    "when": "once, on the 167 discovery respondents, before any policy fit; never repeated inside a CV repeat",
+    "candidate_universe": "universal plus the 8 feature-level groups in the study's analysis_groups, frozen before scores were opened",
+    "n_selected_subgroups": 5,
+    "statistic": "Pearson correlation between a candidate's 15 mean pairwise margins and the discovery population's 15 margins",
+    "n_pairwise_margins": 15,
+    "n_pairwise_margins_note": "choose(6, 2) = 15 with six answers, where v1 had choose(5, 2) = 10; the rule is otherwise identical",
+    "rule": "the 4 lowest-correlation candidates plus 1 ordinary median-correlation candidate (the lower median of the remaining eligible candidates in ascending correlation), so the family is not composed entirely of outliers",
+    "min_discovery_support": 30,
+    "min_discovery_support_validation": "validated against the reserved sample at run time; too few eligible candidates is an error, and the family is never silently shrunk or altered",
+    "undefined_correlation": "ineligible, never selected, recorded as undefined; not coerced to zero and not replaced by another statistic",
+    "tie_break": "low slots: correlation ascending; median slot: the lower median of the remaining eligible candidates in ascending correlation; then discovery support descending, then position in the candidate list; slots are filled low then median, and a candidate can fill only one slot",
+    "complements": "complementary groups may both be selected",
+    "too_few_eligible": "an error; the family is never silently shrunk",
+    "n_low_correlation": 4,
+    "low_end_sign_note": "'low' is the low end of the observed range, not a claim of negative correlation; each candidate's correlation is reported with its sign",
+    "n_median_correlation": 1,
+    "n_high_correlation": 0,
+    "discovery_only": "every number used to rank, filter and select comes from the reserved 167 discovery pseudo-respondents; no analysis respondent, CV fold or fitted policy is read",
+    "not_tuned_to_the_result": "the slot counts are fixed by the analysis configuration"
+  },
+  "cross_validation": {
+    "population": 1497,
+    "repeats": 10,
+    "folds": 10,
+    "splits": 100,
+    "test_fold_sizes": "seven folds of 150 and three of 149 per repeat",
+    "train_fold_sizes": "seven folds of 1347 and three of 1348 per repeat",
+    "cv_seed": 20260919,
+    "learner_seeds": 50,
+    "arms": [
+      "pooled",
+      "multigroup"
+    ],
+    "policy_fits": 10000,
+    "comparisons_per_training_respondent": 1,
+    "tie_rule": "fair_seeded_coin",
+    "shared_comparison_log_across_arms": true,
+    "welfare_comparator": "empirical attainable welfare, refit on each test fold"
+  },
+  "estimand": {
+    "per_seed": "Delta_rfs = max_g D_pooled[r,f,s,g] - max_g D_multigroup[r,f,s,g]",
+    "per_split": "d_rf = mean over the 50 seeds of Delta_rfs",
+    "headline": "mean of the 100 split scores",
+    "positive_favors": "multigroup",
+    "not": "pooling all out-of-fold predictions and then taking one maximum; the welfare ratio and the maximum are nonlinear, so that is a different estimand"
+  },
+  "inference": {
+    "method": "nadeau_bengio_corrected_repeated_cv_t",
+    "se": "sqrt((1/100 + mean(n_test)/mean(n_train)) * s_d^2)",
+    "df": 99,
+    "interval": "two-sided 95% t",
+    "inferential_scores": 100,
+    "not_independent_observations": "the 5,000 seed-level contrasts",
+    "per_group": "corrected paired gaps per selected group, Holm-adjusted p-values across the selected family; the intervals are marginal, not simultaneous"
+  },
+  "robustness": {
+    "panel_seed_sensitivity": "the primary route re-run at panel seeds 20260917-20260920, each in its own output directory; the five estimates are reported as a spread and are never pooled into a larger nominal sample",
+    "learner_radius_sweep": {
+      "protocol_id": "persona-tau-sweep-v2-fixed-six-answer",
+      "learner_taus": [
+        0.05,
+        0.2,
+        0.35,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "evaluation_tau": 0.5,
+      "group_family": "inherited unchanged from the primary v2 route",
+      "comparison_logs": "shared across radii",
+      "agreement_requirement": "at tau = 0.5 the sweep's worst-group gap must equal the primary v2 headline to 1e-9"
+    },
+    "planned_policy_fits": {
+      "primary": 10000,
+      "panel_seed_sensitivity": 40000,
+      "learner_radius_sweep": 60000,
+      "total": 110000
+    }
+  },
+  "descriptive_checks": {
+    "status": "secondary diagnostics",
+    "tables": [
+      "mean and distribution of ratings by answer, overall and by persona cell",
+      "the two incorrect controls' ranks and win rates",
+      "correct-versus-incorrect rating separation overall and by feature group",
+      "preference contrasts for direct versus expressive and accessible versus technical correct answers",
+      "action-selection frequency by arm and selected group"
+    ],
+    "negative_control_policy": "a negative control scoring highly is a finding about this synthetic evaluator, not a reason to drop the answer or rerun the collection"
+  },
+  "conditional_on": [
+    "the discovery-selected group family",
+    "the artificial answer-rating alignment and its panel seed",
+    "the evaluator model and prompt",
+    "the fixed demographic-line position",
+    "the candidate-group universe",
+    "the fixed hyperparameters"
+  ],
+  "does_not_include": [
+    "uncertainty from group selection",
+    "any claim about human demographic preferences",
+    "the causal effect of fixing the demographic line order"
+  ],
+  "comparison_policy": {
+    "reportable_inferential_comparison": "pooled versus multigroup within this v2 collection",
+    "v1_versus_v2": "descriptive only; a side-by-side must be labelled descriptive and must list every confound in collection_design_changes_from_v1. Do not present a v1-v2 difference as the effect of fixed demographic order."
+  }
+}

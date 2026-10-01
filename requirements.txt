@@ -1,0 +1,28 @@
+# Exact tested environment for Python 3.12 (the recorded primary environment).
+# Install with:  python -m pip install -r requirements.txt
+# pyproject.toml declares the looser ranges the code needs; this file pins what was tested.
+numpy==2.3.5
+pandas==3.0.1
+scipy==1.18.1
+matplotlib==3.11.2
+numba==0.67.0
+llvmlite==0.49.0
+
+# Transitive runtime dependencies
+contourpy==1.4.0
+cycler==0.12.1
+fonttools==4.65.0
+kiwisolver==1.5.1
+packaging==26.3
+pillow==12.3.0
+pyparsing==3.3.2
+python-dateutil==2.9.0.post0
+six==1.17.0
+tzdata==2026.3
+
+# Tests
+pytest==9.1.1
+iniconfig==2.3.0
+pluggy==1.6.0
+Pygments==2.21.0
+colorama==0.4.6 ; sys_platform == "win32"

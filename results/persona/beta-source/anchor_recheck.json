@@ -1,0 +1,16 @@
+{
+  "run": "results/persona/beta-source/source",
+  "frozen_run": "results/persona/panel-permutations/base",
+  "anchor_cell": "passive@inf",
+  "method": "direct comparison of the anchor cell's saved arrays with the frozen run's saved arrays; nothing recomputed, no route rerun",
+  "excluded_from_equality": [
+    "the untrained uniform benchmark axis (the frozen run never fitted it)",
+    "timings, seed records and route-specific metadata"
+  ],
+  "splits_compared": 100,
+  "arrays_compared": 900,
+  "mismatches": [],
+  "missing": [],
+  "agrees": true,
+  "note": "Independent re-verification of the source run's own production anchor gate, performed by comparing saved arrays on disk. The beta routes were not rerun and no policy was fitted to produce this check."
+}
