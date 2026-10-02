@@ -1,7 +1,9 @@
-"""Build and verify the anonymous, self-contained empirical submission archive.
+"""Build and verify a compact, self-contained empirical archive.
 
 Only explicitly selected source, frozen inputs, and reference artifacts are
 included. Research originals are never edited. Uses the Python standard library.
+Public authorship and licenses are retained; historical local paths and source
+revision fields in result metadata are stripped for portability.
 """
 
 from __future__ import annotations
@@ -19,7 +21,7 @@ ROOT = PROJECT
 ARCHIVE_ROOT = "EmpiricalTesting"
 EXCLUDED_PARTS = {"__pycache__", ".venv", ".git", ".pytest_cache", ".ruff_cache"}
 EXCLUDED_SUFFIXES = {".pyc", ".pyo", ".nbc", ".nbi", ".log", ".tmp"}
-TEXT_SUFFIXES = {".py", ".json", ".md", ".csv", ".txt", ".toml"}
+TEXT_SUFFIXES = {".py", ".json", ".md", ".csv", ".txt", ".toml", ".cff"}
 ALLOWED_SUFFIXES = TEXT_SUFFIXES | {".pdf", ".png", ".npz"}
 LOCAL_PREFIX = re.compile(
     r"(?:[A-Za-z]:[\\/]+Users[\\/]+|/(?:Users|home)/)[^\r\n\"'<>]*?"
@@ -35,7 +37,7 @@ REVISION_KEYS = {"git_revision", "git_commit", "git_head", "source_revision"}
 
 
 def check_file_type(path: Path) -> None:
-    if path.name in {".gitignore", ".gitattributes"}:
+    if path.name in {".gitignore", ".gitattributes", "LICENSE"}:
         return
     if path.name.lower().startswith(".env") or path.suffix.lower() not in ALLOWED_SUFFIXES:
         raise ValueError(f"Unreviewed submission file type: {path.name}")
@@ -69,10 +71,11 @@ def selected_files(*, include_trajectories: bool = False) -> list[Path]:
                 check_file_type(candidate)
                 files.add(candidate)
 
-    for name in ("README.md", "requirements.txt", "pyproject.toml", ".gitattributes",
+    for name in ("README.md", "CITATION.cff", "LICENSE", "LICENSE-DATA.md", "RELEASE.md",
+                 "requirements.txt", "pyproject.toml", ".gitattributes",
                  ".gitignore", "run_coffee.py", "run_persona.py", "reproduce.py", "build_submission.py"):
         add(name)
-    for directory in ("src", "tests", "scripts"):
+    for directory in ("src", "tests", "scripts", "examples"):
         add(directory, suffix=".py")
     add("configs/coffee.json")
     add("configs/persona.json")

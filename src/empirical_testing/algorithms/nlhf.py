@@ -1,4 +1,4 @@
-"""Constrained NLHF (equilibrium oracle): the pooled non-groupwise baseline.
+"""Batch NLHF: a fixed lottery fitted to pooled passive comparisons.
 
 The study fits this pooled baseline from passive comparisons, with the same
 KL radius, comparison budget, and reference lottery as the corresponding GLHF
@@ -6,10 +6,10 @@ condition. Active GLHF uses its own policy-dependent pair sampler.
 
 What this is, precisely
 ----------------------
-It directly optimizes a Nash equilibrium of the supplied preference game
-with both players restricted to the same hard reverse-KL ball. It is an
-*equilibrium oracle*, and should be described that way in prose, tables and
-figures: "Constrained NLHF (equilibrium oracle)".
+It estimates pairwise win probabilities from the comparison log and numerically
+solves the resulting zero-sum game, with both players restricted to the same
+ball ``KL(policy || reference) <= tau``. The manuscript calls this baseline
+"batch NLHF".
 
 It is **not** an implementation of the Nash-MD iterative training procedure of
 Munos et al., ICML 2024 (https://proceedings.mlr.press/v235/munos24a.html), and
@@ -68,7 +68,7 @@ EXPLOITABILITY_TOLERANCE = 2e-5
 
 #: Human-facing name. The internal arm key stays ``nlhf`` so result schemas and
 #: archived tables keep working.
-DISPLAY_NAME = "Constrained NLHF (equilibrium oracle)"
+DISPLAY_NAME = "Batch NLHF"
 
 #: Baseline identifiers recorded in diagnostics. Legacy selection keeps the
 #: first restart that strictly improves the gap; minimum-KL selection chooses
@@ -266,7 +266,7 @@ def exact_exploitability(
     return float(challenger @ values)
 
 
-#: D-504: which derivative source `solve_constrained_nash`'s SLSQP call uses.
+#: Which derivative source `solve_constrained_nash`'s SLSQP call uses.
 #: ``"finite_difference"`` is scipy's default `approx_derivative` behaviour
 #: (unchanged); ``"analytic"`` is the opt-in closed-form gradient/Jacobian
 #: below. Resolved once per solve, mirroring
@@ -280,9 +280,7 @@ def _resolve_gradient_mode(gradient: Optional[str]) -> str:
     Precedence: the explicit ``gradient`` argument, else the
     ``GWD_NLHF_GRADIENT`` environment variable, else the default
     ``"finite_difference"`` -- the existing, unmodified scipy behaviour.
-    Per D-504 the analytic path is opt-in only; unlike
-    `span_adaptive._resolve_kernel_backend` (whose default was promoted to
-    the compiled backend by D-502), nothing here changes the default.
+    The analytic path is opt-in only.
     Unknown names raise :class:`ValueError`.
     """
 
@@ -433,7 +431,7 @@ def _kl_constraint_gradient(z: np.ndarray, reference: FloatArray, m: int) -> Flo
     return grad
 
 
-#: D-509 SS3/M2: numerical slack added when re-verifying the secondary solve's
+#: Numerical slack added when re-verifying the secondary solve's
 #: *exact* exploitability against `eps_sel`, and when re-verifying its KL
 #: against `tau`. `1e-9` matches the KL-ball feasibility slack already used
 #: for the primary restart loop just below (`nlhf.py` `kl_divergence(...) >
@@ -443,11 +441,11 @@ def _kl_constraint_gradient(z: np.ndarray, reference: FloatArray, m: int) -> Flo
 #: the solver's last-step roundoff.
 _MIN_KL_FEASIBILITY_SLACK = 1e-9
 
-#: D-509 brief 2b M2(i)/(ii): threshold below which two verified secondary-
+#: Threshold below which two verified secondary-
 #: solve KL values are treated as a numerical tie rather than a genuine
 #: ordering (the achieved KL
 #: *value* across every diagnosed restart/tolerance/arithmetic-noise variant
-#: on the D-508 tie folds agreed to well under this, while the *policy*
+#: on the tested tie folds agreed to well under this, while the *policy*
 #: (argmin) varied by up to ~1e-5 Linf -- the value is well-conditioned, only
 #: the argmin is not). Same order as `_MIN_KL_FEASIBILITY_SLACK`, which is
 #: already calibrated to this solver's own re-verification noise floor.
@@ -486,13 +484,11 @@ def _solve_min_kl(
     maxiter: int = 500,
     ftol: float = 1e-12,
 ) -> tuple[Optional[FloatArray], Optional[float], str, int]:
-    """D-509 SS2 option (a): SLSQP secondary solve.
+    """Optional SLSQP secondary solve minimizing KL within an equilibrium set.
 
-    ``maxiter``/``ftol`` (D-509 brief 2b M2(ii)) default to the brief-1
-    values, byte-for-byte, so every existing caller is unaffected; the single
-    caller that varies them is `_solve_min_kl_robust`'s polish pass below,
-    using the *same* objective/constraints/gradients -- the problem
-    definition is unchanged, only the SLSQP options.
+    ``maxiter``/``ftol`` control the SLSQP iteration limit and stopping
+    tolerance. `_solve_min_kl_robust` uses tighter values for its polish pass,
+    with the same objective, constraints, and gradients.
 
     ``min_{pi} KL(pi || reference)`` subject to the smoothed-exploitability
     upper bound ``smoothed(pi, scale) <= eps_sel`` (a safe over-approximation
@@ -501,7 +497,7 @@ def _solve_min_kl(
     KL-ball (``KL(pi||reference) <= tau``) and simplex constraints as the
     primary solve, reusing its exact ``free = [pi, t]`` parameterization and
     bounds. Objective and the exploitability constraint swap roles relative to
-    `solve_constrained_nash`'s primary objective/constraint, reusing D-504's
+    `solve_constrained_nash`'s primary objective/constraint, reusing its
     analytic-gradient machinery verbatim for the swapped-in constraint.
     Analytic derivatives are used here to reduce finite-difference error on
     degenerate folds with tied actions.
@@ -569,9 +565,7 @@ def _solve_min_kl(
         # (metrics.py:556-568) can -- for some candidates this secondary
         # solve produces near a near-exact tie -- leave the returned
         # challenger a hair outside `tau + metrics._TILT_FEASIBILITY_SLACK`
-        # and raise, rather than return a value. `metrics.py` is out of
-        # scope for this task; this is the *caller's* half of D-304's "never
-        # silent" rule -- catch the robustness failure here and report it as
+        # and raise, rather than return a value. Catch the failure and report it as
         # a status, exactly as `min_kl_failed:solver_exception` already does
         # for a SLSQP exception, rather than letting it crash the pipeline.
         return None, None, f"min_kl_failed:kl_tilt_assertion:{error}", iterations
@@ -591,7 +585,7 @@ def _solve_min_kl_robust(
     warm_start_policy: FloatArray,
     warm_start_log_scale: float,
 ) -> tuple[Optional[FloatArray], Optional[float], str, int, dict[str, Any]]:
-    """D-509 brief 2b M2: warm-start-robust wrapper around `_solve_min_kl`.
+    """Warm-start-robust wrapper around the optional `_solve_min_kl` step.
 
     On near-tied folds, the exact exploitability constraint is identically flat along
     the tied-action mass-split direction (an intrinsic property of the
@@ -617,14 +611,13 @@ def _solve_min_kl_robust(
         log-scale ``log(max(tau, 1e-3))``. Whichever attempt verifies
         feasible with the strictly lower KL (by more than
         `_MIN_KL_TIE_MARGIN`) wins; within that margin the two are a genuine
-        numerical tie (per the M1 finding above) and the **canonical** result
+        numerical tie and the **canonical** result
         is preferred deterministically, since it alone does not depend on the
         primary restart's seed, thread count or gradient mode.
     (ii) **Polish.** The winning candidate is re-solved once more from its own
          converged point, with `_MIN_KL_POLISH_MAXITER`/`_MIN_KL_POLISH_FTOL`
-         in place of the brief-1 defaults (M1 experiment E3: this alone
-         shrank the measured restart-seed spread 28x-46x on the worst tie-fold
-         cells). The polished point is accepted only if it independently
+         in place of the default solver settings. The polished point is accepted
+         only if it independently
          verifies feasible *and* its KL does not increase beyond
          `_MIN_KL_TIE_MARGIN` -- it can only match or improve on the winner,
          never regress or violate `eps_sel`.
@@ -729,12 +722,11 @@ def _finalize_selection(
     eps_sel: Optional[float],
     warm_start_log_scale: float,
 ) -> tuple[FloatArray, float, dict[str, Any]]:
-    """Apply the D-509 selection rule to a completed primary solve.
+    """Apply the requested equilibrium-selection rule to a primary solve.
 
     Called from `solve_constrained_nash`'s two exit points (the ``tau <= 0``
     short-circuit and the end of the restart loop) so both inherit the same
-    logic. `fit_pooled_nlhf` and, through it,
-    `intersection_nlhf.fit_intersection_nlhf` inherit it automatically.
+    logic. `fit_pooled_nlhf` inherits this behavior.
 
     ``selection="reference_start_v10"`` (the default) returns the single
     primary solve unchanged: it performs no secondary optimization at all, so
@@ -857,7 +849,7 @@ def solve_constrained_nash(
             "exact_exploitability": float(gap),
             "solver_status": "trivial: B_tau = {reference}, no optimization required",
         }
-        # B_tau is the single point {reference} here, so the D-509 secondary
+        # B_tau is the single point {reference} here, so the optional secondary
         # solve (when selection="min_kl") is trivial; still routed through
         # `_finalize_selection` so eps_sel is validated and diagnostics are
         # recorded consistently with the restarts>0 path below.
@@ -877,10 +869,9 @@ def solve_constrained_nash(
     )
     bounds = [(0.0, 1.0)] * m + [(np.log(1e-6), np.log(1e3))]
 
-    # D-504: opt-in analytic derivatives. `fun` entries above are untouched
+    # Opt-in analytic derivatives. `fun` entries above are untouched
     # either way (same closures, same values); only `jac=` is added, and only
-    # under "analytic". Default ("finite_difference") leaves `minimize` call
-    # byte-for-byte as before this change.
+    # under "analytic". The default uses finite differences.
     if resolved_gradient == "analytic":
         objective_jac = lambda free: _objective_gradient(  # noqa: E731
             free, margins, log_reference, tau, m
@@ -896,7 +887,7 @@ def solve_constrained_nash(
     rng = np.random.default_rng(seed)
     best_policy = reference.copy()
     best_gap = exact_exploitability(best_policy, margins, reference, tau)
-    # D-509: warm-start log-scale for the optional secondary (min-KL) solve --
+    # Warm-start log-scale for the optional secondary (min-KL) solve --
     # the accepted restart's own converged `t`, matching the initial guess
     # below when no restart is ever accepted (best_policy stays the reference).
     best_log_scale = float(np.log(max(tau, 1e-3)))
@@ -904,11 +895,10 @@ def solve_constrained_nash(
         "restarts_used": 0, "solver_success": False, "iterations": 0,
         "accepted_from_restart": -1,
         # Additive, informational only: how many restarts raised out of the
-        # solver call and why. Never consumed for control flow or acceptance;
-        # see D-304.
+        # solver call and why. Never consumed for control flow or acceptance.
         "restart_failures": 0,
         "restart_failure_reasons": [],
-        # Additive (D-504): which derivative source this solve resolved to.
+        # Which derivative source this solve resolved to.
         "gradient_mode": resolved_gradient,
     }
 
@@ -1000,7 +990,7 @@ def solve_constrained_nash(
                 constraints=constraints, options={"maxiter": 500, "ftol": 1e-12},
             )
         except Exception as error:  # solver robustness; see test_nlhf_restart_failures.py
-            # Recorded for visibility only (D-304); does not affect which
+            # Recorded for visibility only; does not affect which
             # restart is accepted or the reference-fallback behaviour below.
             diagnostics["restart_failures"] += 1
             diagnostics["restart_failure_reasons"].append(
@@ -1095,13 +1085,13 @@ def fit_pooled_nlhf(
     selection: Optional[str] = None,
     eps_sel: Optional[float] = None,
 ) -> NLHFPolicy:
-    """Fit the constrained NLHF equilibrium oracle from one comparison log.
+    """Fit batch NLHF from one uniformly sampled passive comparison log.
 
     ``propensities`` is accepted for interface symmetry with the online learners
     and is validated to be constant, which is what makes the plain empirical win
     rate unbiased; it is otherwise unused because constant propensities cancel.
 
-    ``gradient`` (D-504) selects the SLSQP solve's derivative source:
+    ``gradient`` selects the SLSQP solve's derivative source:
     ``"analytic"`` or ``"finite_difference"``. Resolved once per fit by
     `_resolve_gradient_mode` -- explicit argument, else ``GWD_NLHF_GRADIENT``,
     else ``"finite_difference"`` (unchanged default). The objective,
@@ -1109,7 +1099,7 @@ def fit_pooled_nlhf(
     check are identical either way; only how SLSQP computes derivatives
     changes.
 
-    ``selection``/``eps_sel`` (D-509) choose the equilibrium-selection rule;
+    ``selection``/``eps_sel`` choose the equilibrium-selection rule;
     see `solve_constrained_nash` and `_resolve_selection`. Only training
     inputs -- ``(margins derived from pair_indices/signs, reference, tau)`` --
     reach the secondary solve; no held-out data is accepted by this signature.

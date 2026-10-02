@@ -1,9 +1,9 @@
 """Independent NumPy/SciPy reference for the span-adaptive groupwise learner.
 
 This module independently implements the learner's updates to catch bugs in
-the optimized implementation.
-It imports only ``numpy`` and ``scipy``.  It must not import, call, copy, or
-paraphrase ``span_adaptive``, ``one_expert``, or ``numerics``.
+the optimized implementation. Its numerical dependencies are only ``numpy``
+and ``scipy``; it shares no update routines with ``span_adaptive``,
+``one_expert``, or ``numerics``.
 
 Clarity over speed: Python loops and explicit per-coordinate formulas are
 intentional.  A slow oracle that is independently derived is the point.
@@ -22,12 +22,12 @@ from scipy.special import expit, logsumexp
 FloatArray = NDArray[np.float64]
 IntArray = NDArray[np.int64]
 
-# Contract §1: these constants are normative.
+# Learning-rate caps and accumulator offsets used by GLHF.
 _OUTER_RATE_CAP = 0.5
 _INNER_RATE_CAP = 1.0
 _OUTER_DENOMINATOR_OFFSET = 1.0
 _INNER_DENOMINATOR_OFFSET = 0.25
-# Contract §5.1 / §6: singleton trust-region cut for the prox and for tau_bar.
+# Numerical threshold for treating the KL ball as the singleton reference.
 _PROX_ZERO_RADIUS = 1e-10
 _TINY = np.finfo(np.float64).tiny
 
@@ -36,7 +36,7 @@ _TINY = np.finfo(np.float64).tiny
 class SpanAdaptiveReferenceResult:
     """Scientific output of the independent span-adaptive reference.
 
-    Snapshots are the *pre-round* maps of contract §3 / §7: one row per training
+    Snapshots are the *pre-round* policy maps: one row per training
     round, uniform weight ``1/T``.  ``averaged_policy`` is ``predict`` on the
     training membership matrix.
     """
@@ -97,7 +97,7 @@ def _kl_divergence(q: ArrayLike, reference: ArrayLike) -> float:
 
 
 def _log_sum_exp(log_weights: FloatArray) -> float:
-    """Contract §5.2: SciPy's ``logsumexp``, including its operation order.
+    """SciPy's ``logsumexp``, including its operation order.
 
     Non-finite maxima are delegated to SciPy as well.  This is the independent
     definition the optimized kernel is required to match, not a reimplementation
@@ -108,7 +108,7 @@ def _log_sum_exp(log_weights: FloatArray) -> float:
 
 
 def _softmax_from_log(log_weights: FloatArray) -> FloatArray:
-    """Contract §5.2: exp, floor at ``tiny``, then renormalize."""
+    """Exponentiate, floor at ``tiny``, then renormalize."""
 
     values = np.exp(np.asarray(log_weights, dtype=np.float64) - _log_sum_exp(log_weights))
     values = np.maximum(values, _TINY)
@@ -116,19 +116,19 @@ def _softmax_from_log(log_weights: FloatArray) -> FloatArray:
 
 
 def _complexity_term(n_groups: int, horizon: int) -> float:
-    """Contract §1: ``L = max(1, log(K (1 + 0.5 log(T + 1))))``."""
+    """Logarithmic factor ``L = max(1, log(K (1 + 0.5 log(T + 1))))``."""
 
     return float(max(1.0, np.log(n_groups * (1.0 + 0.5 * np.log(horizon + 1.0)))))
 
 
 def _effective_radius(tau: float, reference: FloatArray) -> float:
-    """Contract §1: ``tau_bar = min(tau, log(1 / min pi_ref))``."""
+    """Effective radius ``tau_bar = min(tau, log(1 / min pi_ref))``."""
 
     return float(min(tau, np.log(1.0 / float(np.min(reference)))))
 
 
 def _outer_rate(complexity: float, outer_moment: FloatArray) -> FloatArray:
-    """Contract §1: ``eta(Q) = min(1/2, sqrt(L / (2 (1 + Q))))``.  Nested form only."""
+    """Outer rate ``eta(Q) = min(1/2, sqrt(L / (2 (1 + Q))))``."""
 
     q = np.asarray(outer_moment, dtype=np.float64)
     return np.minimum(
@@ -138,7 +138,7 @@ def _outer_rate(complexity: float, outer_moment: FloatArray) -> FloatArray:
 
 
 def _inner_rate(tau_bar: float, centered_moment: FloatArray) -> FloatArray:
-    """Contract §1: ``theta(C) = min(1, sqrt(tau_bar / (2 (1/4 + C))))``."""
+    """Inner rate ``theta(C) = min(1, sqrt(tau_bar / (2 (1/4 + C))))``."""
 
     c = np.asarray(centered_moment, dtype=np.float64)
     return np.minimum(
@@ -152,7 +152,7 @@ def _score_bound(
     n_alternatives: int,
     propensities: Optional[FloatArray],
 ) -> float:
-    """Contract §2: protocol-specific ``R``, then ``R <- max(1, R)``."""
+    """Protocol-specific score scale ``R``, bounded below by one."""
 
     if protocol == "active":
         bound = float(n_alternatives - 1)
@@ -174,7 +174,7 @@ def _two_sparse_score(
     sign: float,
     propensity: float,
 ) -> FloatArray:
-    """Contract §2: two-sparse inverse-propensity score."""
+    """Two-sparse inverse-propensity score."""
 
     score = np.zeros(policy.shape, dtype=np.float64)
     scale = sign / propensity
@@ -198,7 +198,7 @@ def _draw_comparison(
     all_pairs: IntArray,
     rng: np.random.Generator,
 ) -> tuple[int, int, float, float]:
-    """Contract §8.2: one comparison, consuming RNG only when the protocol draws."""
+    """One comparison, consuming RNG only when the protocol draws."""
 
     n_alternatives = int(policy.size)
     if protocol == "active":
@@ -248,7 +248,7 @@ def kl_prox_project(
     reference: FloatArray,
     tau: float,
 ) -> tuple[FloatArray, Optional[FloatArray]]:
-    """Contract §5.1: the nine-step KL prox onto ``B_tau``.
+    """Exponentiated update followed by KL projection onto ``B_tau``.
 
     Solves ``min_p rate <loss, p> + KL(p || q)`` subject to ``KL(p || pi_ref) <= tau``.
     Returns ``(projected, unconstrained)``.  The unconstrained point is ``None``
@@ -300,7 +300,7 @@ def predict_span_adaptive_reference(
     fit: SpanAdaptiveReferenceResult,
     groups: ArrayLike,
 ) -> FloatArray:
-    """Contract §7: uniform average of the pre-round policy maps, per pattern."""
+    """Uniform average of the pre-round policy maps, per membership pattern."""
 
     membership = _as_group_matrix(groups)
     n_groups = int(fit.inner_policy_snapshots.shape[1])
@@ -355,7 +355,7 @@ def _prepare_inputs(
     int,
     float,
 ]:
-    """Validate scientific inputs and form the score bound of contract §2."""
+    """Validate inputs and form the protocol's score bound."""
 
     group_matrix = _as_group_matrix(groups)
     horizon = int(group_matrix.shape[0])
@@ -470,10 +470,10 @@ def fit_span_adaptive_reference(
     propensities: Optional[ArrayLike] = None,
     n_snapshots: Optional[int] = None,
 ) -> SpanAdaptiveReferenceResult:
-    """Fit the span-adaptive learner from the fidelity-contract equations.
+    """Fit GLHF with an independent implementation of its adaptive updates.
 
     Scientific inputs match the production fitter.  ``n_snapshots`` is accepted
-    only so a non-``None`` value can be rejected (contract §6).
+    only so a non-``None`` value can be rejected: every pre-round map is saved.
     """
 
     if n_snapshots is not None:
@@ -516,7 +516,7 @@ def fit_span_adaptive_reference(
     complexity = _complexity_term(int(n_groups), int(horizon))
     tau_bar = _effective_radius(float(tau), reference_policy)
 
-    # Contract §8.1: shared stream derivation.  The snapshot stream is unused
+    # Shared random-stream derivation. The snapshot stream is unused
     # because the schedule is the exact all-round average.
     seed_sequence = np.random.SeedSequence(seed)
     training_seed, snapshot_seed = seed_sequence.spawn(2)
@@ -532,7 +532,7 @@ def fit_span_adaptive_reference(
 
     eta0 = _outer_rate(complexity, outer_moment)
     if tau_bar <= _PROX_ZERO_RADIUS:
-        # Contract §6: return the reference; consume nothing.
+        # Singleton KL ball: return the reference; consume no comparisons.
         effective_log_mass = log_outer_mass + np.log(eta0)
         outer_snapshots = np.tile(effective_log_mass, (horizon, 1))
         inner_snapshots = np.tile(policies, (horizon, 1, 1))
@@ -557,7 +557,7 @@ def fit_span_adaptive_reference(
         dtype=np.int64,
     )
     n_unordered = int(all_pairs.shape[0])
-    # Contract §2: span(g) <= 1 is asserted only for these protocols.
+    # span(g) <= 1 is asserted only for these protocols.
     span_checked = normalized_protocol == "active" or (
         normalized_protocol == "passive" and propensity_array is None
     ) or (
@@ -619,7 +619,7 @@ def fit_span_adaptive_reference(
             raise AssertionError("reward span exceeded one under a span-bounded protocol")
 
         # §3.6 increments from the pre-update inner policies.
-        # c_k is the directly computed centered moment, not v - r^2 (contract §2).
+        # Compute the centered moment directly to avoid cancellation in v - r^2.
         n_active = int(active_groups.size)
         r = np.empty(n_active, dtype=np.float64)
         c = np.empty(n_active, dtype=np.float64)

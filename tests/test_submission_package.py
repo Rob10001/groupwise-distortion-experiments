@@ -48,10 +48,12 @@ def test_nested_revision_metadata_is_anonymized_without_changing_scientific_hash
 @pytest.fixture
 def package_root(tmp_path, monkeypatch):
     root = tmp_path / "package"
-    for name in ("README.md", "requirements.txt", "pyproject.toml",
+    for name in ("README.md", "CITATION.cff", "LICENSE", "LICENSE-DATA.md", "RELEASE.md",
+                 "requirements.txt", "pyproject.toml",
                  ".gitattributes", ".gitignore", "run_coffee.py", "run_persona.py",
                  "build_submission.py", "reproduce.py", "configs/coffee.json", "configs/persona.json",
-                 "data/persona/ratings.csv", "data/coffee/raw/coffee_survey.csv"):
+                 "data/persona/ratings.csv", "data/coffee/raw/coffee_survey.csv",
+                 "examples/minimal_glhf.py"):
         path = root / name
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text("{}" if path.suffix == ".json" else "fixture\n")
@@ -85,6 +87,8 @@ def test_submission_retains_inputs_endpoints_and_reductions_without_trajectories
         assert f"results/{dataset}/learning-curves/reduce/method_levels.csv" in selected
     assert "data/persona/ratings.csv" in selected
     assert "data/coffee/raw/coffee_survey.csv" in selected
+    assert {"CITATION.cff", "LICENSE", "LICENSE-DATA.md", "RELEASE.md",
+            "examples/minimal_glhf.py"} <= selected
     assert not any(p.endswith("comparisons.npz") or "learning-curves/splits/" in p for p in selected)
     full = builder.selected_files(include_trajectories=True)
     assert any(p.name == "comparisons.npz" for p in full)
@@ -98,6 +102,9 @@ def test_built_archive_records_omissions_preserves_data_and_updates_hashes(packa
         prefix = "EmpiricalTesting/"
         manifest = json.loads(archive.read(prefix + "SUBMISSION_MANIFEST.json"))
         assert manifest["profile"] == "submission"
+        for name in ("CITATION.cff", "LICENSE", "LICENSE-DATA.md", "RELEASE.md",
+                     "examples/minimal_glhf.py"):
+            assert archive.read(prefix + name) == (package_root / name).read_bytes()
         for dataset in ("coffee", "persona"):
             beta = prefix + f"results/{dataset}/beta-source/"
             meta = json.loads(archive.read(beta + "source/splits/r00_f00/split.json"))

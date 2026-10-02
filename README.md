@@ -1,6 +1,19 @@
-# Coffee and Persona experiments
+# Groupwise Distortion Guarantees for Preference-Based Alignment
 
-Code, input data, and reference results for the paper's empirical studies.
+**Jacob Brodkey\*, Roberto Tamez\*, and Aaron Roth**
+
+University of Pennsylvania
+
+\*Equal contribution; co-first authors.
+
+Code, input data, and saved results for the Coffee and Persona experiments in
+our paper. GLHF learns a lottery over alternatives conditional on a user's
+possibly overlapping group memberships, using one pairwise comparison per
+training user. These experiments compare it with learners that serve the same
+lottery to everyone.
+
+The manuscript is not yet on arXiv; its identifier and link will be added here
+when available. See [Citation](#citation) for the current manuscript citation.
 Clone or download this repository and run commands from its root directory.
 After installing dependencies, reproduction needs no network access or API key.
 
@@ -18,6 +31,46 @@ Activate with `.venv\Scripts\Activate.ps1` in Windows PowerShell, or
 ```sh
 python -m pip install -r requirements.txt
 ```
+
+## Start with the algorithm
+
+For a small example that takes seconds rather than running the experimental
+sweeps:
+
+```sh
+python examples/minimal_glhf.py
+```
+
+The example trains GLHF on a uniform passive comparison log for three
+alternatives and three overlapping groups. It supplies group memberships,
+queried pairs, winners, and query probabilities, but no cardinal utilities.
+It then prints the learned lotteries for four membership patterns. Replace
+the toy log with your own comparisons to use the same interface.
+
+The returned policy averages the complete pre-round policies; `predict(groups)`
+evaluates that average for new users. Each row is a lottery within the specified
+KL radius of the reference lottery. The example uses the Python backend for
+readability; the reproduction runs use the tested Numba backend.
+
+### Code guide
+
+- [Minimal example](examples/minimal_glhf.py): input shapes, winner encoding,
+  and prediction on new group memberships.
+- [GLHF implementation](src/empirical_testing/algorithms/span_adaptive.py):
+  adaptive rates, specialist updates, and the returned policy.
+- [Independent reference](src/empirical_testing/reference/span_adaptive_reference.py):
+  the same algorithm written with explicit NumPy/SciPy operations.
+- [Batch NLHF](src/empirical_testing/algorithms/nlhf.py): the pooled comparison
+  baseline, solved numerically within a KL ball.
+- [Evaluation](src/empirical_testing/reporting/metrics.py): groupwise welfare,
+  best feasible fixed-lottery benchmarks, and distortion.
+
+In the GLHF code, `eta` denotes the paper's outer rate `alpha`, `theta` its
+inner rate `eta`, and `schedule.complexity` its logarithmic factor `Lambda_T`.
+The active-sampling experiment interface takes ratings to simulate a queried
+user's comparison; the GLHF updates themselves use only the resulting pair and
+winner. This interface is an experiment simulator, not a live human-feedback
+service.
 
 ## Reproduce all experiments and figures
 
@@ -46,6 +99,24 @@ This uses two original splits and writes to `results/reproduction-smoke/`.
 Beta/comparison runs keep 50 seeds; curves and panel checks use two seeds.
 Smoke results are not paper results. `--dry-run` prints the commands without
 running them. To run the automated tests, use `python -m pytest`.
+
+### Runtime and storage
+
+The minimal example and figure-only commands are quick checks. The full
+command performs hundreds of thousands of fits; it is a batch experiment,
+not a quick-start example. As a scale reference, the saved comparison stages
+took about 44 minutes for Coffee and 28 minutes for Persona with six workers
+on macOS (`results/*/comparison/run_info.json`). Those stages reused the
+GLHF beta grid: these times exclude fresh beta fitting, learning curves, and
+panel checks, so they are **not** timings for the full reproduction command.
+Runtime depends on the machine and worker count; the first Numba call also
+compiles kernels.
+
+The checkout contains roughly 240 MB of data and saved results before Git
+history. Fresh runs also save comparison logs and learning-curve arrays omitted
+from the bundled results, so allow additional disk space. The smoke command
+still uses 50 seeds for its beta/comparison stages; use the minimal example
+for a fast installation check.
 
 ## Recreate figures from bundled results
 
@@ -96,5 +167,33 @@ arrays. Reproduction regenerates them. Saved comparison fits used Python 3.13
 on macOS; the package is tested with Python 3.12 on Windows. Small floating-point
 differences across platforms are expected.
 
-Rebuild the ZIP with `python build_submission.py`. Local reruns, environments,
-caches, and console logs are excluded.
+Build a compact archive with `python build_submission.py`. Local reruns,
+environments, caches, and console logs are excluded. The builder strips local
+paths and historical source-revision metadata from the archived result files;
+it retains the public authorship, citation, and license information.
+
+## Citation
+
+Until the arXiv version is available, please cite the manuscript as:
+
+```bibtex
+@unpublished{brodkey2026groupwise,
+  title = {Groupwise Distortion Guarantees for Preference-Based Alignment},
+  author = {Brodkey, Jacob and Tamez, Roberto and Roth, Aaron},
+  year = {2026},
+  note = {Manuscript. Jacob Brodkey and Roberto Tamez contributed equally}
+}
+```
+
+[CITATION.cff](CITATION.cff) supplies machine-readable metadata. When reporting
+a reproduction, also record the repository commit (`git rev-parse HEAD`) and
+the command used. [RELEASE.md](RELEASE.md) identifies the original public
+snapshot and describes how manuscript-linked releases are frozen.
+
+## Licenses
+
+Original code and accompanying software documentation are under the
+[MIT license](LICENSE). Author-created Persona materials, saved results, and
+figures are under [CC BY 4.0](LICENSE-DATA.md). The Coffee survey retains its
+upstream terms; see [data/README.md](data/README.md) for source attribution and
+the scope of each license.

@@ -1,4 +1,4 @@
-"""Regression tests for the constrained NLHF equilibrium oracle."""
+"""Regression tests for the batch NLHF baseline."""
 
 from __future__ import annotations
 

@@ -6,8 +6,15 @@ build-backend = "setuptools.build_meta"
 name = "empirical-testing"
 version = "0.2.0"
 description = "Coffee and synthetic Persona experiments for groupwise preference learning"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+  {name = "Jacob Brodkey"},
+  {name = "Roberto Tamez"},
+  {name = "Aaron Roth"},
+]
 # Tested on Python 3.12 with the exact versions in requirements.txt. The dependency
-# minimums below (NumPy 2 and pandas 3 need Python >= 3.11) are untested lower bounds.
+# minimums below are untested lower bounds; use requirements.txt for reproduction.
 requires-python = ">=3.11"
 dependencies = [
   "numpy>=2.0",
@@ -21,6 +28,9 @@ dependencies = [
 
 [project.optional-dependencies]
 test = ["pytest>=8"]
+
+[project.urls]
+Repository = "https://github.com/Rob10001/groupwise-distortion-experiments"
 
 [tool.setuptools.packages.find]
 where = ["src"]

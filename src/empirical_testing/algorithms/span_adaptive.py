@@ -1,19 +1,19 @@
-"""Groupwise self-play with span-adaptive learning rates.
+"""GLHF: groupwise learning with score-adaptive learning rates.
 
-This module is the adaptive-rate sibling of :mod:`one_expert`.  It keeps every
-structural element of Algorithm 1 -- one outer Prod weight ``w_k`` and one
-reverse-KL-constrained inner challenger ``pi_k`` per group, the deployed lottery
-mixing the challengers of the active groups, one comparison per round, the exact
-uniform average of all ``T`` pre-round policy maps -- but sets both learning
-rates from trajectory statistics instead of from the a-priori bound ``V_bar_k``::
+This implements Algorithm 1 of the paper. Each group maintains a positive
+outer weight ``w_k`` and an inner lottery ``pi_k`` in the ball
+``KL(pi_k || reference) <= tau``. For each user, the current policy mixes the
+lotteries of the groups containing that user. One comparison updates those
+groups; the output averages all ``T`` pre-round policies. The two learning
+rates depend on accumulated comparison scores::
 
     L        = max(1, log(K (1 + 0.5 log(T + 1))))
     eta_k    = min(1/2, sqrt(L / (2 (1 + Q_k))))          # outer, Q_k = sum r_k^2
     theta_k  = min(1,   sqrt(tau_bar / (2 (1/4 + C_k))))  # inner, C_k = sum Var_{pi_k}(g)
 
 with ``tau_bar = min(tau, log(1 / min pi_ref))`` the effective radius.  The
-reward vector is the normalized, positive-signed version of the score used by
-the fixed learner, ``g = -score / R``; it satisfies ``pi_hat . g = 0`` pathwise,
+reward vector uses the shared helper's loss-score convention,
+``g = -score / R``; it satisfies ``pi_hat . g = 0`` pathwise,
 ``|g_a| <= 1`` and ``span(g) <= 1`` under the passive uniform and the active
 protocols.  Because a rate can decrease, the outer update anchors toward the
 uniform initialization and the inner update toward the reference, each with the
@@ -90,7 +90,7 @@ def _resolve_kernel_backend(kernel_backend: Optional[str]):
     Returns ``(name, compiled_kernels_module_or_None)``: the module is
     imported here, lazily, only when a backend other than ``"python"`` is
     actually resolved, so an environment without numba installed (the
-    ``"python"`` reference/baseline venv) never needs to import it as long
+    ``"python"`` reference implementation) never needs to import it as long
     as it only ever selects ``"python"`` explicitly.
     """
 
@@ -106,7 +106,7 @@ def _resolve_kernel_backend(kernel_backend: Optional[str]):
     if not compiled_kernels.is_numba_available():
         raise RuntimeError(
             "kernel_backend='numba' was resolved (explicitly, via "
-            "GWD_CPU_KERNELS, or as the default -- see D-502), but numba is "
+            "GWD_CPU_KERNELS, or as the default), but numba is "
             "not importable in this environment. Remedies: (1) install "
             "numba, the declared dependency of this package (see "
             "pyproject.toml), in "
