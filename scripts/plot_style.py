@@ -79,13 +79,13 @@ SHORT_LABEL = {
     "expertise:1-4": "Expertise 1–4",
     "gender:female": "Female",
     "children:reported-1+": "Children 1+",
-    "work:from-home": "From home",
+    "work:from-home": "Works from home",
     "universal": "Universal",
     "technical_background_not_technical": "Not technical",
-    "writing_expressive": "Expressive",
-    "writing_direct": "Direct",
+    "writing_expressive": "Expressive wording",
+    "writing_direct": "Direct wording",
     "technical_background_very_technical": "Very technical",
-    "education_university": "University",
+    "education_university": "University education",
 }
 
 
@@ -190,7 +190,7 @@ def fit_right_margin(ax: plt.Axes, x_last: float, labels: Sequence[Any]) -> None
     if not labels:
         return
     renderer = ax.figure.canvas.get_renderer()
-    needed = max(label.get_window_extent(renderer=renderer).width for label in labels) + 4.0
+    needed = max(label.get_window_extent(renderer=renderer).width for label in labels) + 9.0
     width = ax.bbox.width
     if width <= needed:
         return
@@ -213,3 +213,29 @@ def axis_break_glyph(ax: plt.Axes) -> None:
     for dy in (0.006, 0.017):
         ax.plot([-0.011, 0.011], [dy, dy + 0.012], transform=ax.transAxes, color=TEXT,
                 linewidth=0.8, clip_on=False, zorder=6)
+
+
+def check_text_overlap(fig: plt.Figure) -> None:
+    """Check visible axis, tick, annotation, title, and legend text before export."""
+    fig.canvas.draw()
+    renderer = fig.canvas.get_renderer()
+    texts = list(fig.texts)
+    for ax in fig.axes:
+        texts += [ax.title, ax._left_title, ax._right_title,
+                  ax.xaxis.label, ax.yaxis.label]
+        texts += list(ax.get_xticklabels()) + list(ax.get_yticklabels()) + list(ax.texts)
+        if ax.get_legend() is not None:
+            texts += list(ax.get_legend().get_texts())
+    for legend in fig.legends:
+        texts += list(legend.get_texts())
+    items = [(t.get_text(), t.get_window_extent(renderer)) for t in texts
+             if t.get_visible() and t.get_text().strip()]
+    clashes = []
+    for i, (label, box) in enumerate(items):
+        for other, second in items[i + 1:]:
+            dx = min(box.x1, second.x1) - max(box.x0, second.x0)
+            dy = min(box.y1, second.y1) - max(box.y0, second.y0)
+            if dx > 0.75 and dy > 0.75:
+                clashes.append(f"{label!r} / {other!r}")
+    if clashes:
+        raise ValueError("Overlapping figure text: " + "; ".join(clashes))

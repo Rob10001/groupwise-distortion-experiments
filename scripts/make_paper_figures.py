@@ -20,7 +20,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
-from matplotlib.transforms import Bbox
 
 import plot_style as house
 
@@ -39,6 +38,13 @@ LABELS = {
 COLOR = house.COLOR
 TAUS = ("0.05", "0.2", "0.35", "0.5", "0.75", "1")
 NUMERIC = ("estimate", "corrected_se", "ci_lower", "ci_upper")
+
+
+def comparison_run(dataset: str) -> Path:
+    path = RUNS / dataset / "comparison"
+    if not path.exists():
+        path = RUNS / f"{dataset}-comparison-suite-v10"
+    return path
 
 
 def read(path: Path) -> list[dict[str, str]]:
@@ -77,7 +83,7 @@ def output_row(figure: str, panel: str, source: Path, row: dict[str, str]) -> di
 def write_rows(path: Path, rows: list[dict[str, str]]) -> None:
     fields = list(dict.fromkeys(key for row in rows for key in row))
     with path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
@@ -98,16 +104,10 @@ def save(fig: plt.Figure, stem: str) -> list[Path]:
     if SMOKE:
         fig.text(.5, .5, "SMOKE — NOT RESULTS", ha="center", alpha=.4, rotation=20)
     paths = [OUT / f"{stem}.pdf", OUT / f"{stem}.png"]
-    pdf_bbox = png_bbox = "tight"
-    if stem in {"coffee_radius", "persona_radius"}:
-        # Preserve the published crop so the longer method name cannot rescale
-        # the plots when the manuscript includes these figures at a fixed width.
-        pdf_bbox = Bbox.from_bounds(0.0334027777777778, 0.0405,
-                                    5.769244791666665, 2.394055555555555)
-        png_bbox = Bbox.from_bounds(0.03111111111111107, 0.0405,
-                                    5.79109375, 2.394055555555555)
-    fig.savefig(paths[0], bbox_inches=pdf_bbox, pad_inches=0.04)
-    fig.savefig(paths[1], bbox_inches=png_bbox, pad_inches=0.04, dpi=400)
+    if not SMOKE:
+        house.check_text_overlap(fig)
+    fig.savefig(paths[0], bbox_inches="tight", pad_inches=0.04)
+    fig.savefig(paths[1], bbox_inches="tight", pad_inches=0.04, dpi=400)
     plt.close(fig)
     return paths
 
@@ -189,9 +189,16 @@ def radius_figure(dataset: str, run: Path) -> tuple[list[Path], list[dict[str, s
                               and r["cell"] == "tau@0.05"))
     assert len(keys) == 6, keys
     exported: list[dict[str, str]] = []
-    xs = np.arange(6)
-    fig, axes = plt.subplots(1, 3, figsize=(5.5, 2.3),
-                             gridspec_kw={"width_ratios": [0.95, 1.1, 1.1]})
+    xs = np.array([float(tau) for tau in TAUS])
+    # Compact panels include the space beneath endpoint labels.
+    fig = plt.figure(figsize=(7.2, 2.45))
+    panel_width = 1.9
+    panel_height = 1.35
+    axes = [fig.add_axes([left / 7.2, 0.58 / 2.45,
+                          panel_width / 7.2, panel_height / 2.45])
+            for left in (0.55, 2.95, 5.25)]
+    for ax in axes:
+        ax.set_box_aspect(panel_height / panel_width)
     axw, axn, axm = axes
     for method in ("pooled", "pooled_nlhf", "multigroup"):
         rows = [select(worst, cell=f"tau@{tau}", method=method) for tau in TAUS]
@@ -206,8 +213,8 @@ def radius_figure(dataset: str, run: Path) -> tuple[list[Path], list[dict[str, s
     uniform = select(worst, cell="tau@0.5", method="uniform")
     exported.append(output_row(f"{dataset}_radius", "a", wp, uniform))
     axw.axhline(val(uniform, "estimate"), color=COLOR["uniform"],
-                linewidth=0.9, linestyle=(0, (1.5, 1.5)))
-    axw.axhline(1, color="#8A929E", linewidth=0.7)
+                linewidth=0.9, linestyle=(0, (1.5, 1.5)), zorder=0.8)
+    axw.axhline(1, color="#8A929E", linewidth=0.7, zorder=0.8)
     axw.set_title("(a) Worst group", loc="left", pad=5)
     axw.set_ylabel("Worst-group distortion")
     tables = []
@@ -219,36 +226,48 @@ def radius_figure(dataset: str, run: Path) -> tuple[list[Path], list[dict[str, s
             table[:, gi] = [val(r, "estimate") for r in rows]
             ax.plot(xs, table[:, gi], color=house.GROUP_PALETTE[gi], marker="o",
                     markersize=2.5, linewidth=1.1)
-        ax.axhline(1, color="#8A929E", linewidth=0.7)
-        ax.set_title("(b) Batch NLHF by group (passive)" if panel == "b" else
-                     "(c) Multigroup GLHF by group (active)", loc="left", pad=5,
+        ax.axhline(1, color="#8A929E", linewidth=0.7, zorder=0.8)
+        ax.set_title("(b) Batch NLHF" if panel == "b" else
+                     "(c) Multigroup GLHF", loc="left", pad=5,
                      fontsize=7.6)
         tables.append(table)
-    axn.set_ylabel(r"Group distortion $\widehat{D}_k$")
+    axn.set_ylabel("Group distortion")
     low, high = min(t.min() for t in tables), max(t.max() for t in tables)
     spread = max(high - low, 1e-3)
     for ax in (axn, axm):
         ax.set_ylim(min(low - 0.08 * spread, 1 - 0.04 * spread),
                     max(high + 0.08 * spread, 1 + 0.04 * spread))
     for ax in axes:
-        ax.set_xticks(house.LABELLED_TICKS, [TAUS[i] for i in house.LABELLED_TICKS])
-        ax.axvline(3, color="#9A9A9A", linewidth=0.7, linestyle="--")
+        ax.set_xticks(xs[[0, 3, 5]], [TAUS[i] for i in (0, 3, 5)])
+        ax.axvline(0.5, color="#9A9A9A", linewidth=0.7, linestyle="--", zorder=0.8)
         house.tidy(ax)
-    fig.supxlabel(r"Learner radius $\tau_L$ (evaluation ball $\tau_E=0.5$)",
+    fig.supxlabel(r"Learner KL radius $\tau_L$ (evaluation KL radius $\tau_E=0.5$)",
                   fontsize=8, y=0.035)
-    fig.legend(handles=[Line2D([0], [0], color=COLOR[m], marker=house.MARKER[m],
+    fig.legend(handles=[Line2D([0], [0], color=COLOR[m],
+                               marker=None if m == "uniform" else house.MARKER[m],
+                               linestyle=(0, (1.5, 1.5)) if m == "uniform" else "-",
                                markersize=3, label=LABELS[m])
                         for m in ("multigroup", "pooled_nlhf", "pooled", "uniform")],
                loc="lower center", bbox_to_anchor=(0.5, 0.955), ncol=4,
-               fontsize=6.2, columnspacing=0.7, handlelength=1.2)
-    fig.subplots_adjust(left=0.085, right=0.995, bottom=0.235, top=0.79, wspace=0.42)
+               fontsize=6.2, columnspacing=0.7, handlelength=2.0)
     fig.canvas.draw()
     for ax, table in ((axn, tables[0]), (axm, tables[1])):
         labels = house.labels_at_right(ax, xs[-1], [
-            (table[-1, gi], house.SHORT_LABEL.get(key, group_label(key)),
-             house.GROUP_PALETTE[gi]) for gi, key in enumerate(keys)
+            (table[-1, gi], house.SHORT_LABEL[key], house.GROUP_PALETTE[gi])
+            for gi, key in enumerate(keys)
         ], fontsize=7.1)
         house.fit_right_margin(ax, xs[-1], labels)
+    for ax in axes:
+        # Bottom axes and gray horizontal guides stop at tau_L = 1.
+        left, right = ax.get_xlim()
+        ax.spines["bottom"].set_bounds(left, xs[-1])
+        guide_end = (xs[-1] - left) / (right - left)
+        for gridline in ax.yaxis.get_gridlines():
+            gridline.set_xdata([0, guide_end])
+        for line in ax.lines:
+            if line.get_color() in ("#8A929E", COLOR["uniform"]):
+                line.set_xdata([0, guide_end])
+                line.set_zorder(0.8)
     return save(fig, f"{dataset}_radius"), exported
 
 
@@ -260,7 +279,7 @@ def beta_figure() -> tuple[list[Path], list[dict[str, str]]]:
     beta_values = ("0.5", "1", "2", "4", "inf")
     xs = np.arange(5)
     for ax, dataset in zip(axes, ("coffee", "persona")):
-        source = RUNS / f"{dataset}/comparison/reduce/beta/method_levels.csv"
+        source = comparison_run(dataset) / "reduce/beta/method_levels.csv"
         rows = read(source)
         for method in methods:
             selected = [select(rows, cell=f"passive@{beta}", method=method)
@@ -294,13 +313,13 @@ def beta_figure() -> tuple[list[Path], list[dict[str, str]]]:
         house.tidy(ax)
     axes[0].set_ylabel("Worst-group distortion")
     fig.supxlabel(r"Bradley–Terry label parameter $\beta$", fontsize=8, y=0.025)
-    passive_labels = {"multigroup": "Multigroup GLHF passive", "pooled_nlhf": "Batch NLHF passive",
-                      "pooled": "Pooled passive", "uniform": "Uniform reference"}
+    passive_labels = {"multigroup": "Multigroup GLHF (passive)", "pooled_nlhf": "Batch NLHF (passive)",
+                      "pooled": "Pooled GLHF (passive)", "uniform": "Uniform reference"}
     handles = [Line2D([0], [0], color=COLOR[m], marker=house.MARKER[m], markersize=3,
                       linewidth=1.2, label=passive_labels[m]) for m in methods]
     handles += [Line2D([0], [0], color=COLOR[m], linestyle="--", marker="o",
                        markerfacecolor="white", markeredgecolor=COLOR[m], markersize=4,
-                       linewidth=1.2, label=("Multigroup GLHF" if m == "multigroup" else "Pooled") + " active")
+                       linewidth=1.2, label=("Multigroup GLHF" if m == "multigroup" else "Pooled GLHF") + " (active)")
                 for m in ("multigroup", "pooled")]
     fig.legend(handles=handles, loc="lower center", bbox_to_anchor=(0.5, 0.90),
                ncol=3, fontsize=6.5, columnspacing=1.1, handlelength=1.8)
@@ -313,7 +332,7 @@ def gap_figure() -> tuple[list[Path], list[dict[str, str]]]:
     fig, axes = plt.subplots(1, 2, figsize=(5.5, 2.8), sharey=False)
     exported: list[dict[str, str]] = []
     for ax, dataset in zip(axes, ("coffee", "persona")):
-        source = RUNS / f"{dataset}/comparison/reduce/beta/method_group_contrasts.csv"
+        source = comparison_run(dataset) / "reduce/beta/method_group_contrasts.csv"
         rows = read(source)
         display = house.DISPLAY[dataset]
         chosen = [select(rows, cell="active@inf", contrast="pooled-multigroup", group=key)
@@ -329,14 +348,14 @@ def gap_figure() -> tuple[list[Path], list[dict[str, str]]]:
         ax.set_yticks(x, [house.SHORT_LABEL.get(key, label) for key, label, _ in display],
                       fontsize=6.3)
         ax.invert_yaxis()
-        ax.set_xlabel("Pooled − Multigroup GLHF", fontsize=7.2)
+        ax.set_xlabel("Pooled GLHF − Multigroup GLHF", fontsize=7.2)
         ax.set_title("(a) Coffee-rating study" if dataset == "coffee" else "(b) Completion-rating study",
                      loc="left", fontsize=8.3)
         house.tidy(ax, axis="x")
         exported += [output_row("per_group_paired_gaps", dataset, source, r) for r in chosen]
     fig.suptitle(r"Paired group gaps, active GLHF at $\beta=\infty$, $\tau_L=\tau_E=0.5$",
                  fontsize=8.5, y=0.99)
-    fig.subplots_adjust(left=0.16, right=0.995, bottom=0.17, top=0.83, wspace=0.70)
+    fig.subplots_adjust(left=0.16, right=0.995, bottom=0.17, top=0.83, wspace=1.05)
     return save(fig, "per_group_paired_gaps"), exported
 
 
@@ -354,7 +373,7 @@ def main() -> int:
     source_rows: list[dict[str, str]] = []
     sources: dict[str, str] = {}
     for dataset in ("coffee", "persona"):
-        run = RUNS / f"{dataset}/comparison"
+        run = comparison_run(dataset)
         info = json.loads((run / "run_info.json").read_text(encoding="utf-8"))
         if info["status"] != "completed" or bool(info.get("smoke")) != SMOKE:
             raise ValueError(f"{dataset}: comparison suite is not completed production")

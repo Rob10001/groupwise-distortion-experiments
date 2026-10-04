@@ -18,6 +18,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
 
+import plot_style as house
+
 ROOT = Path(__file__).resolve().parents[1]
 CAPTION = (
     "Active and passive Multigroup GLHF training trajectories at beta=infinity "
@@ -77,11 +79,13 @@ def draw(frames: dict[str, pd.DataFrame], output: Path, *, smoke: bool = False) 
         ax.spines[["top", "right"]].set_visible(False)
         ax.grid(axis="y", alpha=0.15)
         ax.tick_params(labelsize=7)
-    axes[0].set_ylabel("Mean worst-group distortion", fontsize=8)
+    axes[0].set_ylabel("Worst-group distortion", fontsize=8)
     axes[1].legend(frameon=False, fontsize=7, loc="upper right")
     fig.suptitle(r"Multigroup GLHF: $\beta=\infty$, KL radius $0.5$", fontsize=9)
     if smoke:
         fig.text(.5, .5, "SMOKE — NOT RESULTS", ha="center", alpha=.4, rotation=20)
+    if not smoke:
+        house.check_text_overlap(fig)
     output.parent.mkdir(parents=True, exist_ok=True)
     paths = []
     for suffix in ("pdf", "png"):

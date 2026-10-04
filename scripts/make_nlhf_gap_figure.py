@@ -36,6 +36,8 @@ SMOKE = False
 def contrast_csv(dataset: str) -> Path:
     path = RUNS / dataset / "comparison/reduce/beta/method_group_contrasts.csv"
     if not path.is_file():
+        path = RUNS / f"{dataset}-comparison-suite-v10/reduce/beta/method_group_contrasts.csv"
+    if not path.is_file():
         raise FileNotFoundError(f"No contrast reduction for {dataset}")
     return path
 
@@ -95,7 +97,9 @@ def gap_figure() -> tuple[list[Path], list[dict[str, str]]]:
                       "source_file": portable(source), **r} for r in chosen]
     fig.suptitle(r"Paired group gaps, passive batch NLHF minus active GLHF at "
                  r"$\beta=\infty$, $\tau_L=\tau_E=0.5$", fontsize=8.5, y=0.99)
-    fig.subplots_adjust(left=0.16, right=0.995, bottom=0.17, top=0.83, wspace=0.70)
+    fig.subplots_adjust(left=0.16, right=0.995, bottom=0.17, top=0.83, wspace=1.05)
+    if not SMOKE:
+        house.check_text_overlap(fig)
     paths = [OUT / f"{STEM}.pdf", OUT / f"{STEM}.png"]
     if SMOKE:
         fig.text(.5, .5, "SMOKE — NOT RESULTS", ha="center", alpha=.4, rotation=20)
@@ -119,7 +123,7 @@ def main() -> int:
     sidecar = OUT / f"plotted_{STEM}_rows.csv"
     fields = list(dict.fromkeys(key for row in source_rows for key in row))
     with sidecar.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         writer.writerows(source_rows)
     outputs.append(sidecar)
