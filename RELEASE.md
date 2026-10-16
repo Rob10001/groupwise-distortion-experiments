@@ -20,15 +20,16 @@ records input and respondent-split hashes. Some historical local paths and
 source revision fields were removed when preparing the original distribution.
 Those omissions do not alter the numerical arrays or input bytes.
 
-## When publishing the arXiv version
+## Paper and release versions
 
-1. Add the actual manuscript URL and identifier to `README.md` and
-   `CITATION.cff`.
-2. Run the tests, minimal example, and figure regeneration checks.
-3. Create an annotated tag for the manuscript-linked commit, and record that
-   tag or commit in the manuscript's reproduction instructions.
-4. Keep published tags fixed. Use a new tag and describe any numerical changes
-   for later revisions.
+The paper is available as
+[arXiv:2610.05450](https://arxiv.org/abs/2610.05450), first submitted on
+October 4, 2026. [Version 1](https://arxiv.org/abs/2610.05450v1) describes
+the experiments in the original public snapshot linked above.
 
-There is no arXiv-specific tag or identifier yet. The commit link above is the
-immutable reference for the original public experiment snapshot.
+The arXiv identifier identifies the paper; record a repository commit to
+identify the code used for a reproduction. For future manuscript-linked
+releases, run the tests, minimal example, and figure regeneration checks,
+then create an annotated tag and record the tag or commit in the paper's
+reproduction instructions. Keep published tags fixed; use a new tag and
+describe any numerical changes for later revisions.

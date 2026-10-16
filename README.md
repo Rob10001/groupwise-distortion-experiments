@@ -12,8 +12,8 @@ possibly overlapping group memberships, using one pairwise comparison per
 training user. These experiments compare it with learners that serve the same
 lottery to everyone.
 
-The manuscript is not yet on arXiv; its identifier and link will be added here
-when available. See [Citation](#citation) for the current manuscript citation.
+Read the paper on [arXiv:2610.05450](https://arxiv.org/abs/2610.05450)
+([PDF](https://arxiv.org/pdf/2610.05450)). See [Citation](#citation) for BibTeX.
 Clone or download this repository and run commands from its root directory.
 After installing dependencies, reproduction needs no network access or API key.
 
@@ -174,14 +174,19 @@ it retains the public authorship, citation, and license information.
 
 ## Citation
 
-Until the arXiv version is available, please cite the manuscript as:
+Please cite the paper as:
 
 ```bibtex
-@unpublished{brodkey2026groupwise,
+@misc{brodkey2026groupwise,
   title = {Groupwise Distortion Guarantees for Preference-Based Alignment},
   author = {Brodkey, Jacob and Tamez, Roberto and Roth, Aaron},
   year = {2026},
-  note = {Manuscript. Jacob Brodkey and Roberto Tamez contributed equally}
+  eprint = {2610.05450},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.LG},
+  doi = {10.48550/arXiv.2610.05450},
+  url = {https://arxiv.org/abs/2610.05450},
+  note = {Jacob Brodkey and Roberto Tamez contributed equally and are co-first authors}
 }
 ```
 
